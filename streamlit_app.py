@@ -1,7 +1,3 @@
-# ───────────────────────────────────────────────────────────────────────────────
-# streamlit_app.py
-# ───────────────────────────────────────────────────────────────────────────────
-
 import streamlit as st
 import random
 
@@ -10,19 +6,19 @@ from session import get_today_batch, increment_day, reset_day
 from scoring import save_answer, get_progress_counts, reset_all_answers
 
 # ───────────────────────────────────────────────────────────────────────────────
-# Page config
+# Page configuration
 st.set_page_config(
     page_title="7-Day Flashcard Memorization",
     layout="wide"
 )
 
 # ───────────────────────────────────────────────────────────────────────────────
-# Load data
+# Load data & progress
 all_flashcards = load_flashcards()
 prog = load_progress()
 day = prog.get("day", 1)
 
-# Today's subset of 40 questions
+# Today's 40-question slice
 daily_batch = get_today_batch(all_flashcards, day)
 answered_dict = prog.get("answered", {})  # { "qid_str": "correct"/"partial"/"wrong", ... }
 
@@ -52,18 +48,6 @@ with st.sidebar:
         st.experimental_rerun()
 
 # ───────────────────────────────────────────────────────────────────────────────
-# If mode changed, reset flashcard‐state variables
-if "prev_mode" not in st.session_state:
-    st.session_state.prev_mode = mode
-
-if mode != st.session_state.prev_mode:
-    # Clear any flashcard session state when switching away
-    for key in ["flashcard_qid", "flashcard_submitted", "flashcard_result"]:
-        if key in st.session_state:
-            del st.session_state[key]
-    st.session_state.prev_mode = mode
-
-# ───────────────────────────────────────────────────────────────────────────────
 # REVIEW MODE: Show all questions + correct answers
 if mode == "Review":
     st.title(f"Review: Day {day} Questions + Correct Answers")
@@ -88,7 +72,7 @@ if mode == "Quiz":
         st.markdown(f"**Q{qid}: {card['question']}**")
         st.markdown(f"*{card['instruction']}*")
 
-        # If already answered, display previous result
+        # If already answered, display result
         if str(qid) in answered_dict:
             result = answered_dict[str(qid)]
             if result == "correct":
@@ -141,75 +125,52 @@ if mode == "Flashcard":
         st.success("🎉 All questions for today have been answered!")
         st.stop()
 
-    # Step 1: If no current flashcard in session_state, pick one at random
-    if "flashcard_qid" not in st.session_state:
+    # Choose or re‐use the current flashcard ID
+    if "flashcard_qid" not in st.session_state or str(st.session_state.flashcard_qid) in answered_dict:
         chosen = random.choice(unanswered)
         st.session_state.flashcard_qid = chosen["id"]
-        st.session_state.flashcard_submitted = False
-        st.session_state.flashcard_result = None
 
-    # Load the current card
     current_qid = st.session_state.flashcard_qid
-    # Find its dict in daily_batch (could index by id map, but a simple loop suffices)
     card = next(c for c in daily_batch if c["id"] == current_qid)
 
-    # Display question + instruction
     st.markdown(f"**Q{current_qid}: {card['question']}**")
     st.markdown(f"*{card['instruction']}*")
 
-    # If user has not yet submitted for this flashcard:
-    if not st.session_state.flashcard_submitted:
-        with st.form(key=f"fc_form_{current_qid}"):
-            selected = []
-            for letter, text in card["options"].items():
-                if st.checkbox(f"{letter}. {text}", key=f"fc_{current_qid}_{letter}"):
-                    selected.append(letter)
+    # Build the form for this flashcard
+    with st.form(key=f"fc_form_{current_qid}"):
+        selected = []
+        for letter, text in card["options"].items():
+            if st.checkbox(f"{letter}. {text}", key=f"fc_{current_qid}_{letter}"):
+                selected.append(letter)
 
-            submitted = st.form_submit_button("Submit Answer")
-            if submitted:
-                correct_set = set(card["answers"])
-                selected_set = set(selected)
+        submitted = st.form_submit_button("Submit Answer")
+        if submitted:
+            correct_set = set(card["answers"])
+            selected_set = set(selected)
 
-                if selected_set == correct_set:
-                    outcome = "correct"
-                    st.success("✅ Correct!")
-                elif selected_set & correct_set:
-                    outcome = "partial"
-                    corr_letters = ", ".join(card["answers"])
-                    st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
-                else:
-                    outcome = "wrong"
-                    corr_letters = ", ".join(card["answers"])
-                    st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
+            if selected_set == correct_set:
+                outcome = "correct"
+                st.success("✅ Correct!")
+            elif selected_set & correct_set:
+                outcome = "partial"
+                corr_letters = ", ".join(card["answers"])
+                st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
+            else:
+                outcome = "wrong"
+                corr_letters = ", ".join(card["answers"])
+                st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
 
-                # Record in session state and in persistent storage
-                st.session_state.flashcard_submitted = True
-                st.session_state.flashcard_result = outcome
-                save_answer(current_qid, outcome)
+            # Persist result
+            save_answer(current_qid, outcome)
 
-                # Don’t immediately pick a new card—wait for “Next” click
-        st.write("---")
+            # Show Next Flashcard button immediately (same page)
+            if st.button("Next Flashcard"):
+                # Clear for next selection and rerun
+                del st.session_state.flashcard_qid
+                st.experimental_rerun()
 
-    else:
-        # Step 2: Show instant feedback (again) and a Next button
-        outcome = st.session_state.flashcard_result
-        if outcome == "correct":
-            st.success("✅ Correct!")
-        elif outcome == "partial":
-            corr_letters = ", ".join(card["answers"])
-            st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
-        else:
-            corr_letters = ", ".join(card["answers"])
-            st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
-
-        st.write("---")
-        if st.button("Next Flashcard"):
-            # Clear flashcard-specific keys and rerun to pick a new one
-            del st.session_state.flashcard_qid
-            del st.session_state.flashcard_submitted
-            del st.session_state.flashcard_result
-            st.experimental_rerun()
-
-    # Show how many remain (optional)
-    updated_unanswered = [c for c in daily_batch if str(c["id"]) not in load_progress().get("answered", {})]
+    # Show how many remain (updated live after submission)
+    prog_after = load_progress()
+    answered_after = prog_after.get("answered", {})
+    updated_unanswered = [c for c in daily_batch if str(c["id"]) not in answered_after]
     st.write(f"Remaining: **{len(updated_unanswered)}/{len(daily_batch)}** unanswered questions today.")

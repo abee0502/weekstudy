@@ -34,13 +34,44 @@ def run_flashcard_mode(questions, day):
         st.session_state.flashcard_submitted = False
         st.session_state.selected_options = set()
 
-    # ─── Current question setup ──────────────────────────────────────────
+    # ─── End of Deck: Allow Restart ─────────────────────────────────────────
     if st.session_state.flashcard_index >= len(st.session_state.flashcard_order):
         st.success("🎉 You've completed all questions for this round.")
-        del st.session_state.flashcard_index
-        del st.session_state.flashcard_order
+
+        if st.button("🔁 Restart All Questions"):
+            # 1) Re‐shuffle the order:
+            new_order = list(range(total))
+            random.shuffle(new_order)
+
+            # 2) Reset session_state
+            st.session_state.flashcard_order = new_order
+            st.session_state.flashcard_index = 0
+            st.session_state.flashcard_submitted = False
+
+            # 3) Clear any leftover “opt_{key}” flags
+            for idx in range(total):
+                for key in questions[idx]["options"].keys():
+                    st.session_state.pop(f"opt_{key}", None)
+
+            # 4) Clear the “answered_ids” for today so the progress bar resets
+            answered_data = load_json(ANSWERED_FILE, {})
+            answered_data[today_key] = []
+            save_json(ANSWERED_FILE, answered_data)
+
+            # 5) Reset saved state in flashcard_state file
+            flashcard_state = load_json(ORDER_FILE, {})
+            flashcard_state[today_key] = {
+                "order": st.session_state.flashcard_order,
+                "index": st.session_state.flashcard_index
+            }
+            save_json(ORDER_FILE, flashcard_state)
+
+            # Re‐run so we start at Question #1
+            st.rerun()
+
         return
 
+    # ─── Current question setup ──────────────────────────────────────────
     idx = st.session_state.flashcard_order[st.session_state.flashcard_index]
     q = questions[idx]
 
@@ -87,7 +118,7 @@ def run_flashcard_mode(questions, day):
         if not st.session_state.flashcard_submitted:
             st.warning("⚠️ Please submit your answer before going to the next question.")
         else:
-            # Clear checkboxes
+            # Clear checkboxes for this question
             for k in q["options"].keys():
                 st.session_state.pop(f"opt_{k}", None)
 

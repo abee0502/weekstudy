@@ -1,0 +1,3174 @@
+[
+    {
+        "question": "Where can you maintain purchasing conditions in SAP Materials Management?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Info records",
+            "B": "Quota arrangements",
+            "C": "Purchase requisitions",
+            "D": "Quotations",
+            "E": "Outline agreements"
+        },
+        "answers": ["A", "D", "E"]
+    },
+    {
+        "question": "What logic does the system use during PO creation to propose a valid price when using an info record?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "The system always proposes the price stored at purchasing organization level, if available.",
+            "B": "If a valid plant-specific price exists, it is proposed when a purchase order is created for the corresponding plant.",
+            "C": "If there are NO valid conditions maintained in the info record, the system can propose the price from the last purchase order.",
+            "D": "The system always proposes the price from the last purchase order whose number was copied into the info record."
+        },
+        "answers": ["B", "C"]
+    },
+    {
+        "question": "What can a purchaser do in the Manage Purchase Requisition SAP Fiori app?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Display processing status of PR",
+            "B": "Create a purchase order",
+            "C": "Approve a purchase requisition",
+            "D": "Initiate contracting",
+            "E": "Initiate sourcing"
+        },
+        "answers": ["A", "B", "E"]
+    },
+    {
+        "question": "For which purpose can you use the product type in SAP S/4HANA?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "To enable the grouping of similar materials",
+            "B": "To define whether the material number can be assigned internally or externally",
+            "C": "To enable the grouping of similar expenditure items",
+            "D": "To define whether a material type is a material or a service"
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "What are some effects of parking a purchase order?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Any further posting for that purchase order is disabled.",
+            "B": "Any kind of errors in the document are permitted.",
+            "C": "You can use a workflow to request completion of the document.",
+            "D": "You can use Situation Handling to alert users about incomplete documents."
+        },
+        "answers": ["A", "C", "D"]
+    },
+    {
+        "question": "What does the account group control when a supplier master record is created?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Whether the supplier master record is a CPD (one-time supplier) account or not",
+            "B": "The allowance account in the general ledger",
+            "C": "Possible data storage levels",
+            "D": "The process of finding a partner",
+            "E": "The expense account in the \"Suppliers\" subledger"
+        },
+        "answers": ["A", "C", "D"]
+    },
+    {
+        "question": "Which of the following organizational units can be a legal entity in SAP S/4HANA?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Board member of a corporation",
+            "B": "Managing Director",
+            "C": "Accounting area",
+            "D": "Plant"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "You will receive an invoice from your supplier for a material amounting to €1,000 per 100 pieces. After entering the header data and the order number, the system suggests an invoice amount of €700 and the quantity of 70 pieces from the goods receipt booking. How can you enter the invoice without invoice blocking?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Before you post the invoice, change the \"Invoice Block\" indicator in the invoice header to \"Manually released for payment\".",
+            "B": "Before posting, you define a tolerance group in your user role whose threshold value is not exceeded by the existing deviation. If you do not have the appropriate permission, you must have your system administrator make this role change.",
+            "C": "You switch to \"Park incoming invoice\" and save the invoice.",
+            "D": "You use manual invoice reduction. Select the \"Supplier Error: Reduce Quantity\" option and enter the quantity and value on the invoice next to the suggested quantity and value."
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "What do you need to configure so that the system automatically suggests certain accounts when purchasing non-stock materials?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "You have to assign valuation classes to the account assignment types.",
+            "B": "You have to assign material groups to the account assignment types.",
+            "C": "You have to assign transaction keys (process keys) to the account assignment types.",
+            "D": "You have to assign evaluation classes to the material groups."
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "A global company wants to consolidate its purchases to achieve better pricing from suppliers. Which of the following features in SAP S/4HANA can support this initiative?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Source List",
+            "B": "Purchase Requisition Consolidation",
+            "C": "Central Purchasing",
+            "D": "Contract Management",
+            "E": "Supplier Network Collaboration"
+        },
+        "answers": ["B", "C", "D"]
+    },
+    {
+        "question": "Which of the following steps can be part of a subcontracting process?",
+        "instruction": "There are 4 correct answers to this question.",
+        "options": {
+            "A": "Create a sales order for components to be provided.",
+            "B": "Settle components consumption by subcontractor.",
+            "C": "Purchase components for direct delivery to subcontractor.",
+            "D": "Post subsequent adjustment of component consumption.",
+            "E": "Create an outbound delivery for components to be provided."
+        },
+        "answers": ["B", "C", "D", "E"]
+    },
+    {
+        "question": "You want to automatically create scheduling agreement schedule line. How can you accomplish this?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Through material requirements planning (MRP)",
+            "B": "By running the program to generate scheduling agreement releases",
+            "C": "In the background when creating a scheduling agreement",
+            "D": "With the release creation profile"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "How can material master data maintenance be optimized in SAP S/4HANA?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "By using the mass maintenance transaction to update multiple records simultaneously.",
+            "B": "By copying complete data from a reference material for every new material created.",
+            "C": "By customizing the material master views to suit specific business needs.",
+            "D": "By automatically extending storage location data upon the first goods receipt."
+        },
+        "answers": ["A", "C", "D"]
+    },
+    {
+        "question": "What must you consider when you define a storage location?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "The storage location key must be unique within a plant.",
+            "B": "A storage location always belongs to a plant.",
+            "C": "A storage location must be assigned the warehouse number.",
+            "D": "A storage location has the same address as the plant."
+        },
+        "answers": ["A", "B"]
+    },
+    {
+        "question": "What can you configure when defining a new movement type?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Quantity string for quantity update",
+            "B": "Dynamic availability check",
+            "C": "Allowed transaction",
+            "D": "Field control",
+            "E": "Value string for account determination"
+        },
+        "answers": ["C", "D", "E"]
+    },
+    {
+        "question": "What rule can a goods movement use to process an accounting-relevant business transaction in SAP Materials Management?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Account Grouping Code",
+            "B": "Valuation area",
+            "C": "Posting key",
+            "D": "Valuation Grouping Code"
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "In which of the following business transactions will you get an error message if you have NOT set up automatic account determination?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Material price changes",
+            "B": "Goods issue of valuated material",
+            "C": "Goods receipt of valuated material",
+            "D": "Stock transfer from a storage location to another storage location",
+            "E": "Goods receipt of consignment stock"
+        },
+        "answers": ["B", "C", "E"]
+    },
+    {
+        "question": "What can you do with transaction MIGO?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Goods Receipt",
+            "B": "Display of the material receipt",
+            "C": "Inventory count",
+            "D": "Display the order",
+            "E": "Return delivery"
+        },
+        "answers": ["A", "B", "E"]
+    },
+    {
+        "question": "Which of the following are valid sources of supply in a source list in SAP Materials Management?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Quotation",
+            "B": "Procurement plant",
+            "C": "Contract",
+            "D": "Quota arrangement"
+        },
+        "answers": ["B", "C"]
+    },
+    {
+        "question": "Where do you enable the ability to personalize the home page?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "In the business catalog",
+            "B": "In the business role assigned to the user",
+            "C": "In the user settings in the back-end system",
+            "D": "In the configuration of the SAP Fiori launchpad"
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "Where do you select the default setting for the order acknowledgement indicator in SAP Materials Management?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "In the personal setting of the purchase order",
+            "B": "In the business function LOG_MM_CI_1",
+            "C": "In the purchasing group",
+            "D": "In the parameter EVO"
+        },
+        "answers": ["A", "D"]
+    },
+    {
+        "question": "Blocking reason Quality is set for an item in an invoice. What could be the reason for this?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Goods-receipt-based invoice verification is used and NO usage decision has been made for the inspection lot for the item in the invoice.",
+            "B": "Goods-receipt-based invoice verification is NOT used and the item in the invoice has the Post to Inspection Stock flag set in its material master.",
+            "C": "Goods-receipt-based invoice verification is used and NO goods receipt has been posted for the item in the invoice.",
+            "D": "Goods-receipt-based invoice verification is NOT used and NO usage decision has been made for any inspection lot for the item in the invoice."
+        },
+        "answers": ["A", "D"]
+    },
+    {
+        "question": "What does the account group influence in the Vendor Master Data?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Purchasing organization",
+            "B": "Field selection",
+            "C": "Partner schema",
+            "D": "Suppling plant",
+            "E": "Status (Supplier or Cpd/One Time-Supplier)"
+        },
+        "answers": ["B", "C", "E"]
+    },
+    {
+        "question": "What are the mandatory entries for an order item for services?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Cost centre",
+            "B": "Storage location",
+            "C": "Position type service",
+            "D": "Profit center",
+            "E": "Account assignment type"
+        },
+        "answers": ["C", "E"]
+    },
+    {
+        "question": "Where can you enter rounding profile?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Source list",
+            "B": "Material master",
+            "C": "Purchasing info record",
+            "D": "Lot-sizing procedure"
+        },
+        "answers": ["B", "C"]
+    },
+    {
+        "question": "You transfer material between two plants. The goods issue in the delivery plant is booked. During the transportation process, some parts of the shipment will be damaged, the delivery factory is responsible for the transportation. How can scrapping be booked?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "You post the goods receipt for the total quantity in the receiving plant to blocked stock and then scrap the damaged parts there.",
+            "B": "You post the goods receipt for the total quantity in the receiving plant to the unrestricted-use inventory and post the scrapping there.",
+            "C": "You adjust the stock in transit and store the remaining quantity in the receiving plant. The scrapping is then booked equally in the delivering and receiving plants",
+            "D": "You cancel the stock transfer in the issuing plant and post the scrapping there."
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "A company wants to ensure that any variances between standard cost and actual cost of materials are captured and analyzed. Which tool in SAP S/4HANA can help achieve this?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Material Ledger",
+            "B": "Split Valuation",
+            "C": "Actual Costing",
+            "D": "Batch Management",
+            "E": "Moving Average Price"
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "Your MRP run detects a shortage of 2000 pieces for a certain material for which a quota arrangement is active. Each of your two suppliers can only supply 1000 pieces at once. What must you maintain to have MRP generate a procurement proposal for 1000 pieces for each supplier?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Assign a rounding profile in the material master record of the planned material",
+            "B": "Set a maximum lot size in the quota arrangement item and activate the 1x checkbox.",
+            "C": "Set a maximum quota quantity in the quota arrangement item for each supplier",
+            "D": "Assign the indicator for quota splitting to the used lot sizing procedure"
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "At what level is the inventory carried out in inventory management?",
+        "instruction": "Please select all the correct answers that apply.",
+        "options": {
+            "A": "At company code level",
+            "B": "At the material level",
+            "C": "At inventory type level",
+            "D": "At storage location level",
+            "E": "At the corporate level",
+            "F": "At factory level"
+        },
+        "answers": ["B", "C", "D", "F"]
+    },
+    {
+        "question": "An incoming invoice shows a variance when compared to the expected quantity or amount. How can you create this invoice?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Enter the actual invoice values and post. The system creates an invoice with the actual values and possibly blocks it for payment.",
+            "B": "Enter the actual invoice values, use the reduction function, and post. The system creates an invoice with the reduced values.",
+            "C": "Enter the actual invoice values. You must then park the invoice because posting is NOT allowed.",
+            "D": "Enter the actual invoice values, use the reduction function, and post. The system creates a credit memo in addition to the actual invoice."
+        },
+        "answers": ["A", "D"]
+    },
+    {
+        "question": "Which objects can be referenced in logistics invoice verification when entering an invoice?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Delivery note from the supplier",
+            "B": "Order",
+            "C": "Service entry sheet",
+            "D": "Material receipt",
+            "E": "Planning sheet from production"
+        },
+        "answers": ["B", "C", "E"]
+    },
+    {
+        "question": "Which object uses an access sequence for message determination?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "The output device of a message condition record",
+            "B": "The message condition set",
+            "C": "The message schema of a document type",
+            "D": "The message type in a message schema"
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "Which of the following apply when using centrally agreed contracts?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "You can use centrally agreed contracts in a procurement hub scenario.",
+            "B": "You can maintain plant-specific conditions in centrally agreed contracts.",
+            "C": "You can use centrally agreed contracts without restrictions for a purchasing organization.",
+            "D": "You CANNOT specify plants in centrally agreed contracts."
+        },
+        "answers": ["A", "B", "D"]
+    },
+    {
+        "question": "What should you pay attention to if you want to send orders to your suppliers by email but change quantities or prices by fax?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Different message types are used for the \"New\" and \"Change\" print functions.",
+            "B": "The price and quantity fields allow changes in the printout.",
+            "C": "The condition record contains price and quantity fields.",
+            "D": "The indicator \"N\" (new message determination for change messages) must be set in Customizing.",
+            "E": "The exclusion indicator (exclusive indicator) must be set in the access sequence."
+        },
+        "answers": ["A", "D", "E"]
+    },
+    {
+        "question": "A company is facing challenges with delayed deliveries from suppliers. They want to evaluate and rank suppliers based on their performance. Which feature in SAP S/4HANA can assist with this?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Quotation Management",
+            "B": "Supplier Classification",
+            "C": "Supplier Evaluation",
+            "D": "Contract Management"
+        },
+        "answers": ["B", "C"]
+    },
+    {
+        "question": "A company wants to develop custom applications in SAP S/4HANA with a consistent user experience that aligns with SAP Fiori design principles. Which tool or framework can be used for this purpose?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "SAP Fiori Elements",
+            "B": "SAP Web Dynpro",
+            "C": "SAP Fiori Design Guidelines",
+            "D": "SAP Fiori Launchpad",
+            "E": "SAP UI5"
+        },
+        "answers": ["A", "E"]
+    },
+    {
+        "question": "During the goods receipt for a purchase order of a material to be stocked, what determines which stock account is updated?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Valuation class",
+            "B": "Account modifier",
+            "C": "Condition record",
+            "D": "Price control"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "What measures are possible when booking a goods receipt to the warehouse with reference to an order?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Adjustment of the order quantity to the goods receipt quantity",
+            "B": "Posting a goods receipt quantity that is below the order quantity",
+            "C": "Distribution of the delivery to different storage locations",
+            "D": "Valuation price maintenance"
+        },
+        "answers": ["A", "B"]
+    },
+    {
+        "question": "In SAP S/4HANA, which tool provides real-time insights into procurement data through interactive dashboards and visualizations?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "SAP Ariba Analytics",
+            "B": "SAP Fiori Apps",
+            "C": "SAP Analytics Cloud",
+            "D": "SAP BW/4HANA"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "Which of these are layers in SAP Best Practice content?",
+        "instruction": "There are 4 correct answers to this question.",
+        "options": {
+            "A": "Process flows",
+            "B": "Scope items",
+            "C": "Solution packages",
+            "D": "Configuration guides",
+            "E": "Building blocks",
+            "F": "Test scripts and factsheets"
+        },
+        "answers": ["A", "B", "D", "F"]
+    },
+    {
+        "question": "Which fields does the authorization object M_EINK_FRG contain for releasing purchasing documents?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Release strategy",
+            "B": "Release type",
+            "C": "Release group",
+            "D": "Release lock",
+            "E": "Release code"
+        },
+        "answers": ["C", "E"]
+    },
+    {
+        "question": "Where do you encounter postings with automatic account determination in materials management?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "In auditing",
+            "B": "In material requirements planning",
+            "C": "In purchase requisitions",
+            "D": "In inventory management",
+            "E": "In the inventory check",
+            "F": "In material evaluation"
+        },
+        "answers": ["D", "E", "F"]
+    },
+    {
+        "question": "A company has received a shipment of goods but notices that some items are damaged. Which document should they create in SAP S/4HANA to record the discrepancy?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Return Delivery",
+            "B": "Purchase Requisition",
+            "C": "Goods Receipt",
+            "D": "Purchase Order",
+            "E": "Invoice"
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "Which influencing factors can you use to define field attributes for a business partner?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Purchasing organization",
+            "B": "Account group",
+            "C": "Client",
+            "D": "Activity",
+            "E": "Business partner role"
+        },
+        "answers": ["B", "C", "E"]
+    },
+    {
+        "question": "A company wants to evaluate the performance of its suppliers based on criteria such as delivery reliability, quality, and price competitiveness. Which feature in SAP S/4HANA can be used for this purpose?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "SAP Analytic Cloud",
+            "B": "SAP Ariba",
+            "C": "Vendor Scorecard",
+            "D": "Supplier Evaluation"
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "What is the prerequisite for carrying out requirements planning (MRP) in a plant?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "You assign an MRP area to each storage location of the respective plant in Customizing (IMG).",
+            "B": "You assign the MRP areas to the materials by creating an MRP area segment for each MRP area in the material master.",
+            "C": "The planned independent requirements of the materials for the plant are maintained.",
+            "D": "The factory parameters of the corresponding plant are maintained in customizing."
+        },
+        "answers": ["A", "B"]
+    },
+    {
+        "question": "What are some functions supported by the Create Supplier Invoice SAP Fiori app?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Enter unplanned delivery costs.",
+            "B": "Process evaluated receipt settlement (ERS).",
+            "C": "Create an invoice for multiple purchase order references.",
+            "D": "Display the purchase order history.",
+            "E": "Start the automatic payment run."
+        },
+        "answers": ["A", "C", "D"]
+    },
+    {
+        "question": "Which of the following are required before you can purchase a product using the item category of vendor consignment in SAP Materials Management?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "An account assignment category",
+            "B": "A material master",
+            "C": "A confirmation control key",
+            "D": "A purchasing info record"
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "At what level do you maintain the purchasing group in the material master?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Plant",
+            "B": "Company code",
+            "C": "Purchasing organization",
+            "D": "Client"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "A company wants to predict future procurement needs based on historical data and market trends. Which tool in SAP S/4HANA can support predictive analytics capabilities for this requirement?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "SAP S/4HANA Embedded Predictive Analytics",
+            "B": "SAP Analytics Cloud Predictive Features",
+            "C": "SAP BW/4HANA Predictive Analytics",
+            "D": "SAP Ariba Analytics"
+        },
+        "answers": ["A", "B"]
+    },
+    {
+        "question": "What characterizes order-related invoice verification?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "The system reports the difference between the delivered quantity and the already calculated quantity as the quantity that is still open for calculation.",
+            "B": "If order-related invoice verification is planned for an order item and no goods receipt has yet been posted, the invoice cannot be posted either.",
+            "C": "The system basically suggests the total delivery quantity as the quantity to be calculated.",
+            "D": "Partial deliveries of an order item are NOT shown as independent items in the invoice",
+            "E": "Partial deliveries of an order item are shown in the invoice as independent items."
+        },
+        "answers": ["A", "D"]
+    },
+    {
+        "question": "Which field selection key is used in conjunction with a document type in SAP MM?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Position type",
+            "B": "Movement type",
+            "C": "Group selection",
+            "D": "Release status",
+            "E": "Document type"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "For which of the following scenarios could you implement a stock determination strategy for a material in inventory management?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "You have both vendor consignment stock and own stock for the material. You want to withdraw your own stock first.",
+            "B": "Your material is stored in different plants. You want to withdraw from the plant with the lowest stock first.",
+            "C": "Your material is stored at various storage locations in your plant. You want to withdraw from the storage location with the highest stock first.",
+            "D": "You have both quality inspection stock and unrestricted-use stock for the material. You want to withdraw unrestricted-use stock first.",
+            "E": "You use split valuation to separate internally produced and externally procured quantities. Internally produced quantities should be withdrawn first."
+        },
+        "answers": ["A", "D", "E"]
+    },
+    {
+        "question": "In the menu item \"System --> User Preferences\" you can, among other things, set default settings for fields. Which of the following choices are available?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Set data",
+            "B": "Hold data",
+            "C": "Delete data",
+            "D": "Accept data",
+            "E": "Apply data"
+        },
+        "answers": ["A", "B", "C"]
+    },
+    {
+        "question": "In your company, cash discounts are posted using the net method. How do you make sure you can book using this process?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "By choosing the appropriate payment method.",
+            "B": "By setting the correct payment terms in the vendor master or the purchase order.",
+            "C": "By creating a separate invoice for the discount amount.",
+            "D": "By selecting the appropriate document type."
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "What influences account determination in general ledger accounting?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Through the chart of accounts",
+            "B": "Through the evaluation group",
+            "C": "Through the controlling area",
+            "D": "Through the evaluation area"
+        },
+        "answers": ["A", "D"]
+    },
+    {
+        "question": "A goods receipt was posted for an order item. The material has the material type NLAG (non-stock material). What happens?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "The value is posted to a consumption account.",
+            "B": "The value is posted to a price difference account.",
+            "C": "The quantity is posted to consumption.",
+            "D": "The quantity is posted to a special inventory for non-stock material.",
+            "E": "The value of the material is reduced accordingly in the warehouse."
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "Which of the following is a key benefit of using analytics in sourcing and procurement processes?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "It automates the procurement process.",
+            "B": "It provides insights into supplier performance and compliance.",
+            "C": "It eliminates the need for purchase orders.",
+            "D": "It replaces the traditional procurement module."
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "What is included in the available inventory for the net requirements calculation as part of requirements planning?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Stock",
+            "B": "Order backlog",
+            "C": "Reporting inventory",
+            "D": "Invoice inventory",
+            "E": "Fixed purchase requisitions"
+        },
+        "answers": ["A", "B", "E"]
+    },
+    {
+        "question": "Which of the following is NOT a standard source of supply in SAP S/4HANA?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Purchase Requisition",
+            "B": "Outline Agreement",
+            "C": "Contract",
+            "D": "Quotation"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "Which master data element in SAP S/4HANA contains information about a SUPPLIER regarding purchasing, such as terms of payment, lead times, and currencies?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Source List",
+            "B": "Material Master",
+            "C": "Vendor Master",
+            "D": "Purchase Info Record"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "A company frequently procures a material in bulk and wants to negotiate special prices and conditions with suppliers. Which source of supply in SAP S/4HANA can be used to establish these negotiated terms?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Purchase Info Record",
+            "B": "Contract",
+            "C": "Quotation",
+            "D": "Outline Agreement",
+            "E": "Source List"
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "In SAP S/4HANA, which of the following sources of supply can be used to procure a material or service based on predefined terms and conditions without the need for a separate purchase order?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Quotation",
+            "B": "Scheduling Agreement",
+            "C": "Purchase Requisition",
+            "D": "Contract"
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "What should you pay attention to if you want to send orders to your suppliers by email, but change quantities or prices by fax?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "The indicator \"N\" (new message determination for change messages) must be set in Customizing.",
+            "B": "The exclusion indicator (exclusive indicator) must be set in the access sequence.",
+            "C": "The price and quantity fields allow changes in the printout.",
+            "D": "Different message types are used for the \"New\" and \"Change\" print functions.",
+            "E": "The condition record contains price and quantity fields."
+        },
+        "answers": ["A", "B", "D"]
+    },
+    {
+        "question": "For which of the following fields can you specify personal default values in transaction MIGO for the combination of transactions (actions) and reference documents?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Movement Type",
+            "B": "Unit of Measure",
+            "C": "Stock Type",
+            "D": "Posting Date"
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "What should be taken into account when calculating the reorder level of a material?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "The lot sizing process",
+            "B": "The replenishment time",
+            "C": "The safety stock",
+            "D": "The check group of the availability check",
+            "E": "The daily requirements forecast for the future (average consumption from the past)"
+        },
+        "answers": ["B", "C", "E"]
+    },
+    {
+        "question": "What is mandatory in a purchase order item for a consumable material in SAP Materials Management?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Material number",
+            "B": "Goods Receipt indicator",
+            "C": "Account assignment category",
+            "D": "GR/IR clearing account"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "An incoming invoice shows a variance when compared to the expected quantity or amount. How can you create this invoice?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Enter the actual invoice values, use the reduction function, and post. The system creates an invoice with the reduced values.",
+            "B": "Enter the actual invoice values, use the reduction function, and post. The system creates a credit memo in addition to the actual invoice.",
+            "C": "Enter the actual invoice values and post. The system creates an invoice with the actual values and possibly blocks it for payment.",
+            "D": "Enter the actual invoice values. You must then park the invoice because posting is NOT allowed."
+        },
+        "answers": ["B", "C"]
+    },
+    {
+        "question": "What type of blocked invoices can you use the Unlock Blocked Invoices app for?",
+        "instruction": "Please choose 3 correct answers.",
+        "options": {
+            "A": "For invoices that are blocked due to discrepancies",
+            "B": "For manually blocked invoices",
+            "C": "For stochastically blocked invoices",
+            "D": "For invoices that are blocked due to excessive amounts"
+        },
+        "answers": ["A", "B", "C"]
+    },
+    {
+        "question": "For which document types can approval be carried out item by item in the workflow?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Goods receipt posting",
+            "B": "Purchase order request",
+            "C": "Delivery schedule",
+            "D": "Purchase order"
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "For which of the following characteristics can you set up the flexible workflow for purchase order approval?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Supplier",
+            "B": "Material group",
+            "C": "Plant",
+            "D": "Document type",
+            "E": "Currency"
+        },
+        "answers": ["B", "D", "E"]
+    },
+    {
+        "question": "When the procurement process is without a material master in Materials Management, to which configuration element can you assign a valuation class?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Material group",
+            "B": "Valuation area",
+            "C": "Item category",
+            "D": "Material type"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "What applies to the \"work\" object?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "A plant can only be assigned to one controlling area.",
+            "B": "A plant can only be assigned to one purchasing organization.",
+            "C": "A plant can be assigned to one or more company codes.",
+            "D": "One or more purchasing organizations can be assigned to a plant.",
+            "E": "A plant can be assigned to one or more companies."
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "You are faced with the following scenario: You need a purchasing document for minor maintenance or repair work that can occur within a certain period of time (duration) and which should not exceed a set amount limit within this period. What type of purchase receipt is suitable here?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "A service order",
+            "B": "A billing plan",
+            "C": "A blanket order/limit order",
+            "D": "A purchase order release order"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "On which level can you define lock-relevant fields?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Plant",
+            "B": "Client",
+            "C": "Material",
+            "D": "User"
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "You have to post scrap expenses to a special account. Based on which characteristics can you influence the behaviour of the account determination?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Storage location",
+            "B": "Movement type",
+            "C": "Stock type",
+            "D": "Plant"
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "What options do you have for posting inventory differences depending on the processing status of the inventory?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "If an inventory document has already been created, enter the counting results and then post the differences in one step.",
+            "B": "You create the inventory document, enter the result of the count and then post the differences in one step.",
+            "C": "If the inventory documents have already been created and the counting results posted, a recount must be initiated for the ZERO counts before the differences can be posted.",
+            "D": "If the count has already been posted, the inventory document can be created with reference to the count and the differences can be posted in one step.",
+            "E": "In the event that the inventory document has already been created and the count has already been posted, only post the differences."
+        },
+        "answers": ["A", "B", "E"]
+    },
+    {
+        "question": "What requirements must be met in order to be able to create reminders for orders when delivery is overdue?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Message determination and message condition records must be configured.",
+            "B": "You must store a confirmation control key in the supplier master record (vendor master record).",
+            "C": "The order must be printed out.",
+            "D": "You have to set the purchase confirmation key in the order item.",
+            "E": "You have to maintain dunning periods in the order item."
+        },
+        "answers": ["A", "D", "E"]
+    },
+    {
+        "question": "What can be the content of a planning area?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "One or more storage locations in different plants",
+            "B": "One or more storage locations in a plant",
+            "C": "Consignment supplier",
+            "D": "A work",
+            "E": "Subcontracting supplier"
+        },
+        "answers": ["B", "D", "E"]
+    },
+    {
+        "question": "In SAP S/4HANA, which of the following can be used to post an invoice for a partial delivery?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Invoice Parking",
+            "B": "Subsequent Credit",
+            "C": "Subsequent Debit",
+            "D": "Invoice Reduction"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "What indicators do you have to set for the collective release so that all purchase requisitions that are possible for release are selected if you do not know whether the respective purchase requisitions require a general release or an item release?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "\"Purchase requisitions with overall approval\" indicator",
+            "B": "\"Release for contract item met\" indicator",
+            "C": "\"Release requirements met\" indicator",
+            "D": "\"Purchase requisitions with item release\" indicator"
+        },
+        "answers": ["A", "C", "D"]
+    },
+    {
+        "question": "You want to post unplanned delivery costs for a specific invoice item. How do you proceed?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "You enter the unplanned delivery costs as a separate item under the \"Details\" tab and post the invoice.",
+            "B": "You increase the total of the relevant invoice item by the amount of the unplanned additional costs.",
+            "C": "You set the \"planned additional procurement costs\" indicator and enter the unplanned additional procurement costs in an additional invoice item under the \"Controlling Values\" tab.",
+            "D": "You select the \"Item to be processed\" indicator and increase the supplier’s invoice amount by the amount of the unplanned additional procurement costs."
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "Which of the following actions can end user perform with filtered report results in an SAP Fiori app?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Send via e-mail.",
+            "B": "Schedule as a background job.",
+            "C": "Save as a CDS view.",
+            "D": "Share on SAP join.",
+            "E": "Save as a new tile on the SAP Fiori launchpad."
+        },
+        "answers": ["A", "D", "E"]
+    },
+    {
+        "question": "Which storage types does SAP HANA support for data?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "File storage",
+            "B": "Sheet storage",
+            "C": "Column storage",
+            "D": "Row storage"
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "Which of the following are possible personalization options of the SAP Fiori launchpad?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Add new catalogs.",
+            "B": "Add tile groups to business roles.",
+            "C": "Add tiles to existing tile groups.",
+            "D": "Add new tile groups."
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "Your company uses the classic release procedure for purchase orders. Which of the following activities can you perform when you release a purchase order?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Delete the purchase order completely.",
+            "B": "Enter the release code assigned to your user.",
+            "C": "Change the value of the purchase order item.",
+            "D": "Reverse an already implemented release or rejection."
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "Which object uses an access sequence for message determination?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "The message schema of a document type",
+            "B": "The message type in a message schema",
+            "C": "The output device of a message condition record",
+            "D": "The message condition set"
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "You want to create a purchase order. An info record is available for the material-supplier combination. What logic does the system use to determine a price from the info record?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "If there are NO valid conditions, the system can propose the price from the last purchase order, if available.",
+            "B": "The system always proposes the price stored at purchasing organization level, if available.",
+            "C": "The system always proposes the valid plant-specific price, if available.",
+            "D": "The system always proposes the price from the last purchase order, if available."
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "You want to specify information in a quotation. Which of the following items can you specify?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "A quota for each delivery item",
+            "B": "An info record number for external procurement requirements",
+            "C": "A quota to be assigned to a source of supply",
+            "D": "One procurement type for each source of supply",
+            "E": "A framework agreement number for external procurement requirements"
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "What can a purchaser do in the MANAGE Purchase Requisition SAP Fiori app?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Approve a purchase requisition",
+            "B": "Initiate sourcing",
+            "C": "Initiate contracting",
+            "D": "Create a purchase order"
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "You are using message determination with condition technique. Which document fields can you include in this process in SAP Materials Management?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Purchasing group",
+            "B": "Material group",
+            "C": "Plant",
+            "D": "Company code"
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "Which of the following SAP Fiori apps must you use to set up the following Situation Handling use case: Quantity Deficit in Supplier's Delivery?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Manage Situation Types",
+            "B": "Monitor Situations",
+            "C": "Manage Situation Types - Message Based",
+            "D": "Manage Teams and Responsibilities"
+        },
+        "answers": ["A", "B"]
+    },
+    {
+        "question": "What information can the analytical Purchasing Group Activity SAP Fiori app provide?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "The net purchased value per purchasing group and month for the current year",
+            "B": "The number of inspection lots per purchasing group and month for the current year",
+            "C": "The number of contracts created by a purchasing group since the beginning of the current year",
+            "D": "The number of purchase orders created by a user since the beginning of the current year"
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "Which data objects can be changed using mass maintenance?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Offer Cancellation",
+            "B": "Stock transport order",
+            "C": "Order book",
+            "D": "Disposition profile",
+            "E": "Contracts",
+            "F": "Vendor master record"
+        },
+        "answers": ["C", "D", "F"]
+    },
+    {
+        "question": "You create blanket purchase order for several minor repairs that may occur during the year. Which of the following data must you enter?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "An invoicing plan type",
+            "B": "An overall limit value",
+            "C": "A net purchase order price",
+            "D": "An account assignment category"
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "What options are there for the system to always suggest a specific supplier as the preferred source of supply for a material?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "You set the “Regular supplier” indicator in the info record.",
+            "B": "You set the “regular supplier” indicator in the business partner’s master record.",
+            "C": "You use the order book and mark the supplier as a “fixed supplier”.",
+            "D": "The supplier is marked as a “single creditor” in the chart of accounts (FI).",
+            "E": "You set the “regular supplier” indicator in the material master."
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "You posted a goods receipt at origin acceptance in SAP Materials Management. For which stock type is the inventory updated?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Valuated GR blocked stock",
+            "B": "Non-valuated GR blocked stock",
+            "C": "Unrestricted-use stock",
+            "D": "Blocked stock"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "Which of the following can be used to achieve AUTOMATED procurement processes in SAP S/4HANA?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Self-Service Requisitioning",
+            "B": "Purchase Order Splitting",
+            "C": "Operational Procurement",
+            "D": "Automatic Purchase Order Creation"
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "Which of the following are Features of subcontracting procurement process?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "You can maintain components to be provided in a bill of Material.",
+            "B": "You can post a non Valuated goods receipt for a subcontracting order item.",
+            "C": "You can have subcontracting purchase requisitions created by MRP.",
+            "D": "You can assign a subcontracting order item to an account.",
+            "E": "You can customize the control parameters for the subcontracting item category."
+        },
+        "answers": ["A", "C", "D"]
+    },
+    {
+        "question": "In SAP S/4HANA, which tool is primarily used to analyze and optimize the purchasing process based on historical data?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Material Requirements Planning (MRP)",
+            "B": "Supplier Evaluation",
+            "C": "Spend Analysis",
+            "D": "Purchase Order Monitor"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "In your company, invoice verification clerks post a cash discount amount using the posting net method. How do they trigger the posting method?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "By using an appropriate document type",
+            "B": "By choosing an appropriate payment method",
+            "C": "By changing the payment terms",
+            "D": "By creating an extra invoice item for the cash discount amount"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "Your company stores various promotional items with an inventory management based on quantity and value. You would like to analyze the value of these promotional items in the future. Unfortunately, the items were created with different material types, product groups, valuation classes and in different number range intervals. This is why you want to change the mappings. Which of the following changes are also permitted if inventory already exists for an item? ",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "You can create a new product group and then assign all promotional items to this product group.",
+            "B": "You can create a new number range interval and then assign all promotional items to this number range interval.",
+            "C": "You can create a new material type and then assign all promotional items to this material type",
+            "D": "You can create a new rating class and then assign all promotional items to this rating class."
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "What configuration element is mandatory for a material type that has been defined as quantity-based and value-based in SAP Materials Management?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Valuation modification",
+            "B": "Account category reference",
+            "C": "Valuation class",
+            "D": "Account group"
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "You have received the order confirmation from your supplier. What do you need to do before you can specify the confirmed delivery date and quantity on an order line?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Set the order confirmation indicator.",
+            "B": "Release any blocked positions using a release key.",
+            "C": "Set the goods receipt indicator.",
+            "D": "Use the confirmation control key in the relevant order line."
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "Which purchasing organization assignments can you make in Customizing for the enterprise structure?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "One purchasing organization to several company codes",
+            "B": "One purchasing organization to several plants across company codes",
+            "C": "Several purchasing organizations to one company code",
+            "D": "Several purchasing organizations to one purchasing group",
+            "E": "One purchasing organization to one company code"
+        },
+        "answers": ["B", "C", "E"]
+    },
+    {
+        "question": "Which object is determined using an access sequence in message determination?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Message condition set for a message type",
+            "B": "Output device in an output condition record",
+            "C": "Output condition record for a message type",
+            "D": "Message schema for a document category"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "You post an invoice with a discount using the gross method. Which booking or bookings will then be triggered automatically?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "The discount amount is immediately posted to an existing account and in the next step, triggered by the payment run, to the discount income account. Both the inventory account and the discount income account are posted in debit.",
+            "B": "The discount amount is immediately posted to the discount income account and in the next step, triggered by the payment run, to the inventory account. The inventory account is posted as credit because the value is reduced by the discount.",
+            "C": "The discount amount is immediately posted to an inventory account and to the discount clearing account. In the next step, triggered by the payment run, the booking is made to the discount income account.",
+            "D": "During the payment run, the discount amount is posted to a discount income account, and the payable is adjusted accordingly."
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "You have agreed on a VALUE CONTRACTS with a supplier for packaging. The exact materials and their purchase prices are NOT specified until the release orders. Which item category must you use when creating the contract?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "M (Material unknown)",
+            "B": "T (Text)",
+            "C": "W (Material group)",
+            "D": "B (Limit)"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "What are the different types of SAP Fiori applications?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Responsive",
+            "B": "Role-based",
+            "C": "Factsheet",
+            "D": "Analytical",
+            "E": "Transactional"
+        },
+        "answers": ["C", "D", "E"]
+    },
+    {
+        "question": "Which of the following elements in SAP S/4HANA can influence the automatic source determination process?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Purchase Requisition Type",
+            "B": "Payment Terms",
+            "C": "Document Type",
+            "D": "Source List"
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "How many catalogs can be accessed from the 'Purchase Requisition Attachments' transaction?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "As many",
+            "B": "One",
+            "C": "99",
+            "D": "999"
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "In SAP S/4HANA, which tool provides pre-built content and KPIs specifically designed for procurement analytics?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "SAP Analytics Cloud",
+            "B": "SAP S/4HANA Embedded Analytics",
+            "C": "SAP Fiori Apps",
+            "D": "SAP BW/4HANA"
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "What setting options are available in Customizing for logistics invoice verification for handling unplanned additional costs in incoming invoices?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Unplanned additional purchase costs must be posted to a separate general ledger account.",
+            "B": "Unplanned additional procurement costs must be posted to the price difference account.",
+            "C": "Unplanned additional procurement costs must be distributed proportionally to the invoice items.",
+            "D": "Unplanned additional purchase costs require a later recount.",
+            "E": "Unplanned additional purchase costs must be posted to a separate WE/RE clearing account for unplanned additional purchase costs.",
+            "F": "Unplanned additional procurement costs must be posted to a specific cost center."
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "In SAP S/4HANA, which tool provides a user-friendly interface for employees to create purchase requisitions without detailed knowledge of the procurement process?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "SAP SRM",
+            "B": "SAP Fiori",
+            "C": "SAP Ariba",
+            "D": "SAP Fieldglass"
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "You post an invoice with invoice reduction. What can you observe in the system?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Only one accounting document is created containing both the invoice and the credit memo postings.",
+            "B": "The invoice is blocked for payment until the supplier confirms the credit memo receipt.",
+            "C": "Two accounting documents are created: one for the invoice posting and one for the credit memo posting.",
+            "D": "A message is created that can be issued to the supplier as a notification of a credit memo posting."
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "What do you have to set so that price conditions in orders are only visible to certain users?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "The user parameters EVO",
+            "B": "The transaction's field selection key",
+            "C": "The user parameters EFB",
+            "D": "The activity category field selection key"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "A company wants to ensure that only authorized personnel can release blocked invoices for payment. Which feature in SAP S/4HANA can be used to define and enforce this approval process?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Payment Terms",
+            "B": "Release Strategy",
+            "C": "Invoice Block Key",
+            "D": "Invoice Parking",
+            "E": "Tolerance Key"
+        },
+        "answers": ["B", "C"]
+    },
+    {
+        "question": "You have ordered a stock material that is valuated with a standard price. The price in the purchase order (PO) is higher than the standard price of the material. Which accounts are updated at goods receipt?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Price difference account",
+            "B": "Stock/Inventory account",
+            "C": "Consumption account",
+            "D": "Vendor account",
+            "E": "GR/IR account"
+        },
+        "answers": ["A", "B", "E"]
+    },
+    {
+        "question": "You want to set up an account determination that groups several material types on the same accounts. What must you do?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Assign the same account modification to the material types.",
+            "B": "Assign the same valuation class to the material types.",
+            "C": "Assign the same valuation grouping code to the material types.",
+            "D": "Assign the same account category reference to the material types."
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "Your warehouse receives a delivery, but you do not want the delivered materials to be posted to inventory at first. How do you proceed when accepting such a conditional delivery?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "The materials are posted to the unvalued goods receipt blocked stock (GR blocked stock).",
+            "B": "When booking the WE, you select movement type 343 (free to use on blocked).",
+            "C": "The materials are posted to the valuated goods receipt blocked stock (GR blocked stock).",
+            "D": "You set a corresponding indicator in the order and deactivate it again as soon as you finally want to book the materials into inventory."
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "When posting an invoice with a purchase order reference, what options are there for the automatic posting of unplanned additional costs?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "The system automatically determines a cost center to post the additional costs.",
+            "B": "The additional costs are posted to an extra account that must have been activated in advance in Customizing in the account determination table.",
+            "C": "The system automatically determines the valid WE/RE account to post the additional costs.",
+            "D": "The additional costs are automatically distributed among the invoice items.",
+            "E": "The additional costs will be recorded in a separate invoice."
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "Your purchasing department wants to monitor overdue purchase orders. What are the prerequisites for issuing delivery reminders for a purchase order?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Set message determination in Customizing and maintain message records.",
+            "B": "Maintain purchasing value keys in the purchase order item.",
+            "C": "Output the purchase order.",
+            "D": "Maintain reminder periods in the purchase order item.",
+            "E": "Maintain a confirmation control key in the supplier master."
+        },
+        "answers": ["A", "C", "D"]
+    },
+    {
+        "question": "Which of the following actions are supported when you post a goods receipt to stock with reference to a purchase order?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Split the quantity received to multiple storage locations.",
+            "B": "Post partial order quantity.",
+            "C": "Adjust order quantity to received quantity.",
+            "D": "Maintain a valuation price."
+        },
+        "answers": ["A", "B"]
+    },
+    {
+        "question": "Which of the following options are controlled by the material type?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Whether split valuation is allowed for the material",
+            "B": "Whether batch management is active for the material",
+            "C": "Whether the material number assignment is internal or external",
+            "D": "Which procurement type(s) the material can have"
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "You purchase finished goods from a supplier who manufactures those goods from parts supplied to them by your company. What do you call this process?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Normal procurement",
+            "B": "Three-way procurement",
+            "C": "Outsourced procurement",
+            "D": "Contract processing/manufacturing"
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "Which of the following statements apply to manually created reservation?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "You must enter a material number in the item.",
+            "B": "You can maintain different movement types per item.",
+            "C": "You can set the movement allowed indicator per item.",
+            "D": "You can assign different account assignments objects per item."
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "Which of the following are features of supplier classification in SAP S/4HANA?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Evaluation of suppliers based on soft facts",
+            "B": "Assignment of suppliers to materials groups",
+            "C": "Support of integration to Dun & Bradstreet data",
+            "D": "Assignment of characteristics to suppliers"
+        },
+        "answers": ["C", "D"]
+    },
+    {
+        "question": "Which statements apply to the final delivery indicator in an order item?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "It is set automatically by the system if the delivered quantity does not fall below the underdelivery tolerance.",
+            "B": "If it is set, goods receipt can no longer be posted for the corresponding order item.",
+            "C": "The indicator can be set manually when booking the goods receipt.",
+            "D": "As soon as it is set, the order item no longer has any significance for requirements planning."
+        },
+        "answers": ["A", "C", "D"]
+    },
+    {
+        "question": "You are entering a supplier invoice with reference to a purchase order. After verifying that the balance is zero, you decide to post the invoice. The system detects quantity differences that exceed the upper tolerance limit specified in Customizing. How does the system react?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "A message is issued. You can post the invoice and it is automatically blocked for payment.",
+            "B": "NO message is issued. You can post the invoice and it is automatically blocked for payment.",
+            "C": "A message is issued. You can only park the invoice.",
+            "D": "A message is issued. You can post the invoice and it is automatically released for payment."
+        },
+        "answers": ["A"]
+    },
+    {
+        "question": "Which of the following attributes can you maintain in an account assignment category in SAP Materials Management?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Consumption posting",
+            "B": "Message output parameter",
+            "C": "Valuation class",
+            "D": "Special stock",
+            "E": "Account modification"
+        },
+        "answers": ["A", "D", "E"]
+    },
+    {
+        "question": "Which of the following sources of supply in SAP S/4HANA provides a binding offer from a supplier to deliver a material or service at a specified price on a certain date?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "Outline Agreement",
+            "B": "Purchase Order",
+            "C": "Contract",
+            "D": "Quotation"
+        },
+        "answers": ["D"]
+    },
+    {
+        "question": "Which statements apply to roles?",
+        "instruction": "There are 4 correct answers to this question.",
+        "options": {
+            "A": "Roles are organizational units of FI and CO.",
+            "B": "Roles can contain transactions.",
+            "C": "Role profiles can be created manually.",
+            "D": "Roles limit the user's radius of action in the system.",
+            "E": "To create role profiles, you must use the role management functions (transaction PFCG).",
+            "F": "Roles can contain a predefined set of favorites."
+        },
+        "answers": ["B", "C", "D", "E"]
+    },
+    {
+        "question": "Which of the following reflect the SAP Fiori design?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Visual design",
+            "B": "Information architecture",
+            "C": "Design thinking methodology",
+            "D": "Interaction patterns",
+            "E": "Unified user interface design"
+        },
+        "answers": ["A", "B", "D"]
+    },
+    {
+        "question": "Which of the following tools in SAP S/4HANA allows for the personalization and simplification of traditional SAP GUI screens?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "SAP UI5",
+            "B": "SAP Screen Personas",
+            "C": "SAP Fiori Elements",
+            "D": "SAP Fiori Apps"
+        },
+        "answers": ["B"]
+    },
+    {
+        "question": "Which functions can be used for the collective conversion of assigned purchase requisitions into purchase orders?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "The automatic generation of orders via purchase requisitions",
+            "B": "The requirements planning",
+            "C": "The document overview in the \"Create order\" app (ME21N)",
+            "D": "The order book",
+            "E": "The assignment list"
+        },
+        "answers": ["A", "C", "E"]
+    },
+    {
+        "question": "Which of the following are features of a scheduling agreement?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Scheduling agreement delivery schedule lines can only be created manually.",
+            "B": "A scheduling agreement item is always plan-specific.",
+            "C": "Item category M (Material unknown) can be used in a scheduling agreement.",
+            "D": "A scheduling agreement can be used for a consignment process.",
+            "E": "A material master record is optional in a scheduling agreement item."
+        },
+        "answers": ["B", "D", "E"]
+    },
+    {
+        "question": "Which of the following occurs when you park a supplier invoice related to a purchase order?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "G/L accounts are updated.",
+            "B": "The purchase order history is updated.",
+            "C": "An FI invoice is posted and blocked for payment.",
+            "D": "An MM invoice document is created."
+        },
+        "answers": ["B", "D"]
+    },
+    {
+        "question": "Which of the following capabilities does the end-to-end Operational Procurement solution in SAP S/4HANA provide?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Central requisitioning",
+            "B": "Service purchasing and recording",
+            "C": "Self-service requisitioning",
+            "D": "Purchase order collaboration",
+            "E": "Spend visibility"
+        },
+        "answers": ["B", "C", "D"]
+    },
+    {
+        "question": "Which of the following methods are static lot sizing methods?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Sliding economic batch size",
+            "B": "Lot size according to accounting procedure",
+            "C": "Fill up to the maximum level",
+            "D": "Exact batch size",
+            "E": "Fixed batch size",
+            "F": "Period-related lot size"
+        },
+        "answers": ["C", "D", "E"]
+    },
+    {
+        "question": "What are \"Accelerators\" which allows a faster start of your project?",
+        "instruction": "There are 4 correct answers to this question.",
+        "options": {
+            "A": "Process diagrams",
+            "B": "Availability and dependency of scope items",
+            "C": "Master Data Overview",
+            "D": "Organizational Overview",
+            "E": "Prerequisite Matrix",
+            "F": "Reservations"
+        },
+        "answers": ["B", "C", "D", "E"]
+    },
+    {
+        "question": "You carry out a requirements planning run for a material for which an active quota arrangement exists. The planning run registers a shortage of 3,500 pieces. You have two suppliers who could deliver the material promptly, but each only delivers half the quantity required, i.e. 1,750 pieces each. What do you do to generate a procurement proposal for these 1750 pieces per supplier?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "You set a maximum quota quantity in the quota position.",
+            "B": "You assign the split quota indicator to the lot sizing procedure used.",
+            "C": "You set a maximum lot size in the quotation position and at the same time check the \"1x\" checkbox.",
+            "D": "You store a rounding profile in the relevant material master."
+        },
+        "answers": ["B", "C"]
+    },
+    {
+        "question": "Which SAP Smart Business KPIs are available in connection with purchase requisitions?",
+        "instruction": "There are 4 correct answers to this question.",
+        "options": {
+            "A": "Overdue purchase requisition items",
+            "B": "Purchase Requisition To Order Cycle Time",
+            "C": "Purchase Requisition Average Approval Time",
+            "D": "Average value per purchase requisition",
+            "E": "Purchase Requisition No Touch Rate",
+            "F": "Purchase Requisition Item Changes"
+        },
+        "answers": ["B", "C", "E", "F"]
+    },
+    {
+        "question": "Which of the following tools in SAP S/4HANA provides a runtime and development environment for web-based applications?",
+        "instruction": "Please choose the correct answer.",
+        "options": {
+            "A": "SAP Fiori Elements",
+            "B": "SAP Screen Personas",
+            "C": "SAP UI5",
+            "D": "SAP Fiori Launchpad"
+        },
+        "answers": ["C"]
+    },
+    {
+        "question": "What are Apps in Procurement Analytics which are specific for contract?",
+        "instruction": "There are 4 correct answers to this question.",
+        "options": {
+            "A": "Quantity/Value Consumption",
+            "B": "Contract expiry",
+            "C": "Unapproved contracts",
+            "D": "Contract Leakage",
+            "E": "Unused contracts"
+        },
+        "answers": ["A", "B", "D", "E"]
+    },
+    {
+        "question": "Which objects are available for a Simplification item?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Application component",
+            "B": "SAP Note",
+            "C": "Custom code impact",
+            "D": "Edition release",
+            "E": "Description"
+        },
+        "answers": ["B", "C", "E"]
+    },
+    {
+        "question": "Which fields can you take into account in Customizing for logistics invoice verification as part of the invoice duplicate check?",
+        "instruction": "There are 3 correct answers to this question.",
+        "options": {
+            "A": "Invoice date",
+            "B": "Reference document number",
+            "C": "Tax amount",
+            "D": "Company code",
+            "E": "Expiry date"
+        },
+        "answers": ["A", "B", "D"]
+    },
+    {
+        "question": "Which SAP Fiori apps can an employee use for self-service requisitioning?",
+        "instruction": "There are 2 correct answers to this question.",
+        "options": {
+            "A": "Confirm Receipt of Goods",
+            "B": "Create Purchase Requisition Advanced",
+            "C": "Create Purchase Requisition",
+            "D": "Confirm Purchase Orders"
+        },
+        "answers": ["A", "C"]
+    },
+    {
+        "question": "What are the design philosophy of SAP Fiori is based on?",
+        "instruction": "There are 5 correct answers to this question.",
+        "options": {
+            "A": "coherent",
+            "B": "delightful",
+            "C": "holistic",
+            "D": "role-based",
+            "E": "adaptive",
+            "F": "simple",
+            "G": "screen-based"
+        },
+        "answers": ["A", "B", "D", "E", "F"]
+    },
+      {
+    "question": "Which of the following are features of the Delivery Completed indicator in a purchase order (PO) item?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "If you set the indicator, the PO item is NO longer relevant for material requirements planning.",
+      "B": "You can set the indicator manually when entering a goods receipt for your PO item.",
+      "C": "The indicator is always set automatically if the quantity received is within the underdelivery tolerance.",
+      "D": "If you set the indicator, NO further goods receipt may be posted for the PO item."
+    },
+    "answers": ["A", "B", "C"]
+  },
+  {
+    "question": "Which of the following methods in SAP S/4HANA uses both past consumption data and future requirements to determine material needs?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Time-phased Planning",
+      "B": "Reorder Point Planning",
+      "C": "Material Requirements Planning",
+      "D": "Forecast-based Planning"
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "Which of the following are features of subcontracting procurement process?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "You can have subcontracting purchase requisitions created by MRP.",
+      "B": "You can post a non valuated goods receipt for a subcontracting order item.",
+      "C": "You can assign a subcontracting order item to an account.",
+      "D": "You can maintain components to be provided in a bill of material.",
+      "E": "You can customize the control parameters for the subcontracting item category."
+    },
+    "answers": ["A", "B", "D"]
+  },
+  {
+    "question": "Which work steps can be part of the contract processing process?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Creating an outbound delivery for materials that are to be made available to the subcontractor",
+      "B": "The purchase of components that are delivered directly to the subcontractor",
+      "C": "The billing of component consumption by the subcontractor",
+      "D": "The subsequent booking of component consumption",
+      "E": "Creating a customer order for components that are to be made available to the subcontractor"
+    },
+    "answers": ["A", "B", "D"]
+  },
+  {
+    "question": "Which of the following assignments can you configure?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The allowed account assignment categories for each item category.",
+      "B": "The allowed item categories for each document type.",
+      "C": "The allowed item categories for each account assignment category.",
+      "D": "The allowed account assignment categories for each document type."
+    },
+    "answers": ["A", "B"]
+  },
+  {
+    "question": "Which of the following is a key characteristic of consumption-based planning in SAP S/4HANA?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "It is primarily used for make-to-order scenarios.",
+      "B": "It does not depend on the master production schedule.",
+      "C": "It uses master production schedules.",
+      "D": "It is based on sales orders."
+    },
+    "answers": ["B"]
+  },
+  {
+    "question": "Which of the following are possible personalization options of the SAP fiori launchpad?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Selection of tile size",
+      "B": "Selection of an SAP fiori catalog",
+      "C": "Settings for language & region",
+      "D": "Selection of the design theme"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "You are posting a goods receipt without a corresponding purchase order (PO) in the system. Which of the following are prerequisites for automatic generation of the PO at the time of goods receipt?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Automatic purchase order generation is activated for the movement type in Customizing.",
+      "B": "A valid purchasing info record exists for the material and supplier combination.",
+      "C": "The delivered material is a valuated stock material.",
+      "D": "A central purchasing organization is assigned to the plant in Customizing.",
+      "E": "The goods receipt to be posted is intended for consumption."
+    },
+    "answers": ["A", "B", "D"]
+  },
+  {
+    "question": "Which statements about delivery plans or release creation profiles are true?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Release creation profiles can be stored in purchasing info records.",
+      "B": "Release creation profiles can be stored in supplier master records.",
+      "C": "A release creation profile controls the aggregation of quantities (starting the day after release creation) in a delivery schedule and the implementation of a TOLERANCE CHECK",
+      "D": "A release creation profile controls the period in which releases from a delivery plan are created and transmitted to the supplier.",
+      "E": "A release creation profile triggers the generation of scheduling agreement releases"
+    },
+    "answers": ["C", "D", "E"]
+  },
+  {
+    "question": "Which of the following information can be used as a reference when posting an invoice if goods have already been received for the corresponding order?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "The order number",
+      "B": "The sales order number",
+      "C": "The waybill number",
+      "D": "The purchase requisition number",
+      "E": "The delivery note number"
+    },
+    "answers": ["A", "C", "E"]
+  },
+  {
+    "question": "You are using message determination with condition technique. Which parameter can you specify in a condition record for a message output type in SAP Materials Management?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Print form",
+      "B": "Partner function",
+      "C": "Message texts",
+      "D": "Output time"
+    },
+    "answers": ["B", "D"]
+  },
+  {
+    "question": "Which of the following requirements must be met before you can purchase a product with supplier consignment?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The \"consignment control\" indicator is set in the article or material master.",
+      "B": "There is a purchasing info record for consignment",
+      "C": "There is a special procurement key.",
+      "D": "There is an account assignment type."
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "Which functions exist in the SAP Fiori \"Manage Purchase Requisitions\" app?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Proposal of available sources of supply",
+      "B": "Deletion of purchase requisitions",
+      "C": "Addition of documents to purchase requisitions",
+      "D": "Download of open purchase requisitions"
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "Which transfer postings within a plant result in both a material document and an accounting document in SAP Materials Management?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "A material-to-material transfer posting",
+      "B": "A transfer posting from consignment stock into own stock",
+      "C": "A transfer posting from one storage location to another storage location",
+      "D": "A transfer posting from quality inspection stock into unrestricted-use stock"
+    },
+    "answers": ["A", "B"]
+  },
+  {
+    "question": "Where does SAP S/4HANA store the low-level code used to determine the sequence in which materials are planned during the MRP run?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Material master",
+      "B": "Production version",
+      "C": "Bill of material",
+      "D": "MRP planning file"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "What data does the system require to determine the safety stock during automatic reorder point planning?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Mean absolute deviation",
+      "B": "Minimum and maximum stock levels",
+      "C": "Service level",
+      "D": "The storage costs code",
+      "E": "Replenishment lead time"
+    },
+    "answers": ["A", "C", "E"]
+  },
+  {
+    "question": "Which configuration element in SAP S/4HANA is used to define the sequence in which conditions are accessed during the pricing determination process in purchasing?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Pricing Procedure",
+      "B": "Access Sequence",
+      "C": "Condition Type",
+      "D": "Calculation Schema"
+    },
+    "answers": ["B"]
+  },
+  {
+    "question": "Where can I personalize the SAP Fiori Launchpad Home Page?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "In the user roles",
+      "B": "In the user setting",
+      "C": "In the application catalog",
+      "D": "In the launchpad configuration parameters"
+    },
+    "answers": ["B"]
+  },
+  {
+    "question": "What can you do with graphics when analyzing KPI reports in Purchasing Analytics?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "You can change the aspect ratio of graphics (squeeze or stretch).",
+      "B": "You can change the data model",
+      "C": "You can choose different CDS views",
+      "D": "You can import them from Excel.",
+      "E": "You can export them to Excel"
+    },
+    "answers": ["A", "E"]
+  },
+  {
+    "question": "What connection exists between the service master record and the service list?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Service lists are required in supplier inquiries and service master records in orders.",
+      "B": "In order to create a service master data catalog, service lists are required.",
+      "C": "The list of services is a data record that defines the structure of the service master record for reporting.",
+      "D": "Service master records are used as a data source when creating a service specification."
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "Which field selection key is used in conjunction with a document type in SAP MM?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Movement type",
+      "B": "Document type",
+      "C": "Position type",
+      "D": "Release status"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "What does the system use to determine a source of supply?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Purchasing info records",
+      "B": "Purchase contracts",
+      "C": "Purchase requisitions",
+      "D": "Requests for quotation"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "What does the system do during reorder point planning?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "It performs a net requirements calculation for each material that is part of the planning run.",
+      "B": "It performs backward scheduling to determine the availability dates of the purchase requisitions.",
+      "C": "It performs a lot size calculation for each material with net requirements.",
+      "D": "It checks the entries in the planning file to see whether a material should be included in the planning run.",
+      "E": "It recalculates the replenishment lead time for materials with automatic reorder point planning"
+    },
+    "answers": ["A", "C", "D"]
+  },
+  {
+    "question": "What setting is defined with a movement type in SAP Materials Management?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Account Modifier",
+      "B": "Valuation Class",
+      "C": "Valuation Area",
+      "D": "Value String"
+    },
+    "answers": ["A"]
+  },
+  {
+    "question": "What is included in the functional scope of the purchasing analytics KPI tiles?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "This includes insight-to-action with drill-down functionality (display of different drill-down levels)",
+      "B": "XYZ",
+      "C": "The Smart Business Alert functionality is part of it. Such a Smart Business Alert goes to specific people when a predetermined limit is exceeded.",
+      "D": "Real-Time Data"
+    },
+    "answers": ["A", "C", "D"]
+  },
+  {
+    "question": "When using a classic release procedure, for which of the following documents must you use classification?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Purchase requisitions",
+      "B": "JIT delivery schedules",
+      "C": "Purchase orders",
+      "D": "Requests for quotation"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "What is a prerequisite for the functionality of partner finding in purchasing?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The definition of partner schemes",
+      "B": "The assignment of partner roles to account groups",
+      "C": "The assignment of partner roles to document types",
+      "D": "The assignment of partner schemas to agreement types",
+      "E": "The assignment of partner schemas to account groups"
+    },
+    "answers": ["A", "E"]
+  },
+  {
+    "question": "Which of the following activities is a prerequisite to enable partner role determination in purchasing?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Assign a partner schema to relevant account groups.",
+      "B": "Define permissible partner roles per document type.",
+      "C": "Assign a partner schema to relevant arrangement types.",
+      "D": "Define permissible partner roles per account group."
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "What characterizes limit order items (item category B)?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Limit order items must contain material numbers.",
+      "B": "Only valued goods receipts are permitted in limit order items.",
+      "C": "Invoices can only be generated automatically for limit order items.",
+      "D": "The account assignment type U (unknown) is permitted in limit order items."
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "What can be defined in Customizing for the movement type?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "That quantities and inventory values of the movement type are accessible to all company codes",
+      "B": "The account adjustment for transactions and events with an active account grouping in the account key table",
+      "C": "That quantities and inventory values are updated with the movement type when posting",
+      "D": "The number range for material documents that is created when postings are made with the movement type",
+      "E": "The indicator for the automatic generation of storage location data in the material master at the time of the first goods receipt",
+      "F": "The short text about the type of movement and the reasons for the movement"
+    },
+    "answers": ["B", "C", "F"]
+  },
+  {
+    "question": "In your project you need to make sure that consignment purchase orders utilize a different number range than other purchase orders. What must you do?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Customize a new item category for this purpose and deactivate the standard one",
+      "B": "Customize a new document type. Assign a new number range object, and assign the item category for consignment to this type",
+      "C": "Customize a new document type. Assign a new number range, and assign the item category for consignment only to this type",
+      "D": "Customize a new item category for this purpose and and assign a new number range to it"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "What is the prerequisite for carrying out requirements planning (MRP) in a plant?",
+    "instruction": "There are 4 correct answers to this question.",
+    "options": {
+      "A": "You have assigned the MRP areas to the materials in the material master.",
+      "B": "The factory parameters of the corresponding plant are maintained in customizing.",
+      "C": "You have converted the existing planning file entries at plant level to planning file entries at MRP area level.",
+      "D": "You have activated MRP for MRP areas in Customizing.",
+      "E": "You have defined the MRP areas in Customizing.",
+      "F": "The planned independent requirements of the materials for the plant are maintained."
+    },
+    "answers": ["A", "C", "D", "E"]
+  },
+  {
+    "question": "What does setting the final delivery indicator in a purchase order item (BP) lead to?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The BP cannot be deleted or archived",
+      "B": "Goods receipts for quantities that are still outstanding can still be posted afterwards.",
+      "C": "BP is exempt from delivery reminders.",
+      "D": "The commitment of the order increases."
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "How can you control the account determination for planned delivery costs based on the condition type?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Assign an account key in the access sequence",
+      "B": "Assign an account key in the condition type",
+      "C": "Assign an account key in the condition record",
+      "D": "Assign an account key in the calculation schema"
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "What must you consider regarding the extension of the maximum field length of the material number in SAP S/4HANA?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "SAP provides technical compatibility for released external interfaces such as BAPIs and IDocs.",
+      "B": "The extended material number functionality is activated by default in SAP S/4HANA.",
+      "C": "Custom code referring to the extension of the material number field length may need to be updated.",
+      "D": "The extended material number functionality CANNOT be activated in a multi system landscape."
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "What do you have to do to use Separate Valuation?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "You have to assign evaluation types to the different types of operations.",
+      "B": "You have to configure assessment types and types.",
+      "C": "You have to assign valuation categories to valuation types",
+      "D": "You have to create data for accounting in the material master.",
+      "E": "You have to assign valuation types to the different account types."
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "Which indicators can you set in a source list in SAP Materials Management?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "MRP",
+      "B": "Forecast",
+      "C": "Blocked",
+      "D": "JIT"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "You test the various options that SAP S/4HANA offers for stock transfers between two different plants within the same company code. Which special features do stock transport orders have?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "You can optionally post the goods issue from inspection stock in the supplying plant.",
+      "B": "If necessary, you can post the goods receipt to blocked stock in the receiving plant.",
+      "C": "The material on the road is part of the valuated stock of the shipping plant.",
+      "D": "The material on the road is managed in the stock in transit of the receiving plant."
+    },
+    "answers": ["B", "D"]
+  },
+  {
+    "question": "What are the purchasing analysis functionalities of the SAP Smart Business KPI tiles?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "The data displayed on the tiles is constantly updated in real time.",
+      "B": "Each tile has different tabs that are used to break down topics",
+      "C": "Numbers on the tiles can take on different colors to represent different warning levels or limits.",
+      "D": "Tile compact charts (chart snippets) update automatically with each review."
+    },
+    "answers": ["A", "C", "D"]
+  },
+  {
+    "question": "What value is displayed for the creation indicator in the Contacts tab when a purchase requisition is created manually?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Splitting",
+      "B": "Offline",
+      "C": "Demand Planning",
+      "D": "Realtime"
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "To which organizational unit is the valuation area indirectly assigned if product cost accounting and production planning are to be used in your company?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Controlling area",
+      "B": "Business Area",
+      "C": "Plant",
+      "D": "Company Code"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "You are responsible for releasing blocked supplier invoices. Which of the following options does SAP S/4HANA offer?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Choose the Supplier Invoices List SAP Fiori app and branch to the invoice to be released",
+      "B": "Use the My Inbox SAP Fiori app if a workflow has been implemented for this purpose.",
+      "C": "Choose the Monitor Payments SAP Fiori app and branch to the invoice to be released.",
+      "D": "Choose the Schedule Billing Release SAP Fiori app for an automatic release."
+    },
+    "answers": ["A", "B", "D"]
+  },
+  {
+    "question": "What happens in SAP MM when booking a valued goods receipt for an order item with material master and account assignment K (cost center)?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "The system creates a material document, but not an accounting document.",
+      "B": "The system creates a document in the Business Warehouse (SAP BW).",
+      "C": "The system creates a debit entry on the consumption account specified in the order.",
+      "D": "The system adjusts the inventory of the relevant material."
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "What is the prerequisite for an order for a goods receipt to be automatically generated by the system in the event that there is no corresponding order for this goods receipt?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "\"Automatic generation of orders in the background\" is set in the configuration of the movement type (Customizing).",
+      "B": "The booking is a consumable item.",
+      "C": "A central purchasing organization is assigned to the plant.",
+      "D": "An account assignment type is specified for goods receipt.",
+      "E": "There is a valid purchasing info record for the corresponding material and supplier combination."
+    },
+    "answers": ["A", "E"]
+  },
+  {
+    "question": "What does the account assignment category control?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The item categories you are allowed to use",
+      "B": "The type of account assignment object you must specify",
+      "C": "Whether you must enter a material in the purchase order",
+      "D": "Whether you can post a goods receipt"
+    },
+    "answers": ["A", "B"]
+  },
+  {
+    "question": "What can be defined in Customizing for the movement type?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "That quantities and inventory values are updated with the movement type when posting",
+      "B": "The indicator for the automatic generation of storage location data in the material master at the time of the first goods receipt",
+      "C": "The account adjustment for transactions and events with an active account grouping in the account key table",
+      "D": "The number range for material documents that is created when postings are made with the movement type",
+      "E": "That quantities and inventory values of the movement type are accessible to all company codes",
+      "F": "The short text about the type of movement and the reasons for the movement"
+    },
+    "answers": ["A", "C", "F"]
+  },
+  {
+    "question": "What are some of the consequences of setting the Delivery Completed Indicator in a purchase order (PO) item?",
+    "instruction": "There are 4 correct answers to this question.",
+    "options": {
+      "A": "Open purchase order quantity is set to zero",
+      "B": "The PO item is skipped when delivery reminders are generated.",
+      "C": "You can still post goods receipts of remaining quantities.",
+      "D": "The PO item CANNOT be deleted and archived.",
+      "E": "The item is no longer considered in Material Requirements Planning (MRP)",
+      "F": "The commitment for the PO item will increase."
+    },
+    "answers": ["A", "B", "C", "E"]
+  },
+  {
+    "question": "You want create a purchase order with reference to a purchase requisition, what controls the linkage between the line item of your purchase order and the purchase requisition?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Document Type",
+      "B": "Item Category",
+      "C": "Account Assignment Category",
+      "D": "Document category"
+    },
+    "answers": ["B"]
+  },
+  {
+    "question": "In your company, invoice verification clerks post a cash discount amount using the posting net method. How do they trigger the posting method?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "By using an appropriate document type",
+      "B": "By creating an extra invoice item for the cash discount amount",
+      "C": "By changing the payment terms",
+      "D": "By choosing an appropriate payment method"
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "What requirements must be met in order to use an inventory determination strategy for a material in inventory management?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "You assign an inventory determination rule to the business transaction (business transaction) in Customizing of the calling application.",
+      "B": "You assign a stock determination group to the corresponding material in the material master record.",
+      "C": "You create an inventory determination rule in Customizing and assign it to the corresponding storage type.",
+      "D": "When customizing inventory management, you define a cross-application strategy for inventory determination according to which the inventories should be reduced.",
+      "E": "You assign an inventory determination strategy to the material type"
+    },
+    "answers": ["A", "B", "C"]
+  },
+  {
+    "question": "Which automatic account determination configuration data is used to subdivide an accounting-relevant posting to the general ledger in SAP Materials Management?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Account grouping code",
+      "B": "Chart of accounts",
+      "C": "Valuation area",
+      "D": "Valuation class"
+    },
+    "answers": ["A"]
+  },
+  {
+    "question": "Where can you enter a rounding profile?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Lot-sizing procedure",
+      "B": "Purchasing info record",
+      "C": "Source list",
+      "D": "Material master"
+    },
+    "answers": ["B", "D"]
+  },
+  {
+    "question": "What is the definition of an opening horizon?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "The time available for the MRP run to convert a requirement into a schedule line or a planned order",
+      "B": "The time available for the MRP run to convert requirements into purchase requisitions or planned orders",
+      "C": "The time available for the MRP controller to convert a purchase requisition into a purchase order or a schedule line",
+      "D": "The time available for the MRP controller to convert a planned order into a purchase requisition or a production order"
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "Which of the following procurement proposals can be created during an MRP Live planning run for externally procured materials?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Planned order",
+      "B": "Purchase order",
+      "C": "Delivery schedule line",
+      "D": "Purchase requisition"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "Which of the following tasks does the system perform during reorder point planning?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Flag materials that have been subject to an activity relevant to MRP",
+      "B": "Carry out a lot-size calculation for every material with net requirements",
+      "C": "Carry out a net requirement calculation for every material included in the planning run",
+      "D": "Perform backward scheduling to determine the availability dates of purchase requisitions"
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "What does SAP S/4HANA use to determine the sequence in which materials are planned?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Source list",
+      "B": "MRP group",
+      "C": "Low-level code",
+      "D": "Quota arrangement"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "Which of the following does the material type control?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Procurement type of a material",
+      "B": "Batch requirement for a material",
+      "C": "Material number assignment",
+      "D": "Field selection in the material master",
+      "E": "Material availability check"
+    },
+    "answers": ["A", "C", "D"]
+  },
+  {
+    "question": "Which of the following rules apply when configuring the enterprise structure?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "The key of a storage location is unique within a company code.",
+      "B": "Several storage locations can be assigned to a plant.",
+      "C": "A plant can only be assigned to one company code.",
+      "D": "The key of a plant is unique within a client.",
+      "E": "A storage location can be assigned to several plants."
+    },
+    "answers": ["B", "C", "D"]
+  },
+  {
+    "question": "Production planning and product costing are to be implemented in your company. Which organizational level must you choose for stock valuation?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Plant",
+      "B": "Company code",
+      "C": "Controlling area",
+      "D": "Business area"
+    },
+    "answers": ["A"]
+  },
+  {
+    "question": "At which of the following organizational levels must you maintain a business partner master record for a supplier?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Plant",
+      "B": "Purchasing group",
+      "C": "Purchasing organization",
+      "D": "Company code",
+      "E": "Client"
+    },
+    "answers": ["A", "C", "D"]
+  },
+  {
+    "question": "What are some characteristics of the material ledger?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "It must be activated per controlling area.",
+      "B": "It is used to calculate different prices for material valuation.",
+      "C": "It is mandatory in SAP S/4HANA.",
+      "D": "It is used to valuate materials in different currencies.",
+      "E": "It is used to calculate the standard price."
+    },
+    "answers": ["B", "C", "D"]
+  },
+  {
+    "question": "Which of the following factors can you use to control field attributes for a business partner?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Client",
+      "B": "Partner schema",
+      "C": "Business partner role",
+      "D": "Business partner type",
+      "E": "Business partner category"
+    },
+    "answers": ["A", "C", "D"]
+  },
+  {
+    "question": "Your company wants to enable cross-purchasing organization procurement for some products to take advantage of centrally agreed conditions. Which entity do you need for this?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "A purchasing group",
+      "B": "A reference purchasing organization",
+      "C": "A standard purchasing organization",
+      "D": "A purchasing team"
+    },
+    "answers": ["B"]
+  },
+  {
+    "question": "Which field in the customizing of the material type controls whether a material can be used in the lean service process?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Material Type ID",
+      "B": "Field Reference",
+      "C": "Item Category Group",
+      "D": "Product Type Group"
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "In your organizational structure, a single purchasing organization will operate across company codes. How must you assign the purchasing organization?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "To the plants for which it is responsible",
+      "B": "To a standard purchasing organization",
+      "C": "To the company codes for which it is responsible",
+      "D": "To a reference purchasing organization"
+    },
+    "answers": ["A"]
+  },
+  {
+    "question": "You use quota arrangements. You include a new supplier in an existing quota system. How can you ensure that the new supplier is considered as if they had been part of the quota arrangement from the beginning?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Manually update the source list",
+      "B": "Manually update the quota-allocated quantity",
+      "C": "Manually update the quota base quantity",
+      "D": "Manually update the quota"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "Your purchasing department is interested in working with scheduling agreements. What valid information can you share with them regarding release creation profiles?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "A release creation profile triggers the creation of scheduling agreement schedule lines.",
+      "B": "You can enter a release creation profile in a purchasing info record.",
+      "C": "You can enter a release creation profile in the supplier master data.",
+      "D": "A release creation profile controls the aggregation of schedule line quantities in a delivery schedule.",
+      "E": "A release creation profile controls the periodicity of delivery schedule creation."
+    },
+    "answers": ["C", "D", "E"]
+  },
+  {
+    "question": "Which of the following apply when using centrally agreed contracts?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "You can use centrally agreed contracts in a procurement hub scenario.",
+      "B": "You can only create release orders for the central purchasing organization.",
+      "C": "You can maintain plant-specific conditions in centrally agreed contracts.",
+      "D": "You can use centrally agreed contracts without restrictions for any purchasing organization."
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "In Customizing, for which documents can you decide whether to use time-dependent conditions?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Purchase order",
+      "B": "Scheduling agreement",
+      "C": "Quotation",
+      "D": "Contract"
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "What must you do to implement split valuation?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Assign valuation types to stock types",
+      "B": "Add valuation types to all open purchase order items",
+      "C": "Create additional accounting data for the relevant materials",
+      "D": "Customize valuation categories and valuation types"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "Which of the following can you do when customizing split valuation?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Assign an account category reference to a valuation type",
+      "B": "Assign valuation classes to a valuation category",
+      "C": "Assign a procurement type to a valuation type",
+      "D": "Specify price control for a valuation category"
+    },
+    "answers": ["A", "D"]
+  },
+  {
+    "question": "There are multiple company codes and plants in your SAP S/4HANA system. You have set the valuation area to plant level. How can you reduce the effort to configure account determination?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "You can use the valuation grouping code to group together plants assigned to company codes with different charts of accounts.",
+      "B": "You can use the account grouping code to group together plants assigned to company codes with the same chart of accounts.",
+      "C": "You can use the valuation grouping code to group together plants assigned to company codes with the same chart of accounts.",
+      "D": "You can use the account grouping code to group together plants assigned to company codes with different charts of accounts."
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "You want to set up the same account determination for raw materials (material type ROH) and operating supplies (material type HIBE). How can you group these material types?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Assign the same account category reference to the material types",
+      "B": "Assign the same account modification to the material types",
+      "C": "Assign the same valuation grouping code to the material types",
+      "D": "Assign the same valuation class to the material types"
+    },
+    "answers": ["A"]
+  },
+  {
+    "question": "When creating an invoice with purchase order reference, which options are available for the automatic posting of unplanned delivery costs?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Distribute among the invoice items.",
+      "B": "Post automatically in a separate invoice.",
+      "C": "Post to a separate account.",
+      "D": "Post to a freight clearing account."
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "How can you control the account determination for planned delivery costs based on the condition type?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Assign an account key in the condition record",
+      "B": "Assign an account key in the access sequence",
+      "C": "Assign an account key in the condition type",
+      "D": "Assign an account key in the calculation schema"
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "For which of the following transactions do you receive an error message if the automatic account determination is set up incorrectly?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Transfer posting between stock types in one plant",
+      "B": "Goods receipt into blocked stock",
+      "C": "Stock transfer between company codes",
+      "D": "Material valuation price change",
+      "E": "Purchasing condition price change"
+    },
+    "answers": ["B", "C", "D"]
+  },
+  {
+    "question": "You want to use split valuation for your refurbishing process to differentiate between materials based on the condition of the material. What do you need to consider for the accounting data of your material?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "For the valuation area, the price control must be standard price.",
+      "B": "For each possible valuation type, the price control must be moving average price.",
+      "C": "For each possible valuation type, the price control must be standard price.",
+      "D": "For the valuation area, the price control must be moving average price."
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "Which of the following actions are supported when you post a goods receipt to stock with reference to a purchase order?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Post a goods receipt for part of the order quantity",
+      "B": "Enter a value for the quantity received",
+      "C": "Post the quantity received to quality inspection stock",
+      "D": "Adjust the purchase order quantity to the goods receipt quantity",
+      "E": "Split the quantity received to multiple storage locations"
+    },
+    "answers": ["A", "B", "E"]
+  },
+  {
+    "question": "What does the account assignment category control in a purchase requisition or purchasing document item?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Whether you must enter a material",
+      "B": "The type of account assignment object you must specify",
+      "C": "Whether you can post a goods receipt",
+      "D": "The item categories you are allowed to use"
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "How can you automatically update the conditions in an already created purchasing info record?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Select the Info Update indicator when maintaining a contract",
+      "B": "Select the Info Update indicator when creating a contract release order",
+      "C": "Select the Info Update indicator when maintaining a quotation",
+      "D": "Select the Info Update indicator when creating a purchase order"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "What are some advantages of a stock transport order compared to a stock transfer posting between two plants?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "You can post goods receipt in consignment.",
+      "B": "You can post goods receipt to consumption.",
+      "C": "You can create stock transport requisitions via MRP.",
+      "D": "You can issue from inspection stock.",
+      "E": "You can plan delivery costs."
+    },
+    "answers": ["B", "C", "E"]
+  },
+  {
+    "question": "What must you do when using supplier consignment?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Create consignment storage locations",
+      "B": "Create consignment info records",
+      "C": "Settle liabilities resulting from consignment stock withdrawals",
+      "D": "Settle liabilities resulting from consignment stock receipts"
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "Which of the following are features of a subcontracting procurement process?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "You can customize the control parameters for the subcontracting item category.",
+      "B": "You can have subcontracting purchase requisitions created by MRP.",
+      "C": "You can maintain the components to be provided in a bill of material.",
+      "D": "You can assign a subcontracting order item to an account.",
+      "E": "You can post a non-valuated goods receipt for a subcontracting order item."
+    },
+    "answers": ["B", "C", "D"]
+  },
+  {
+    "question": "Which of the following steps can be part of a subcontracting process?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Purchase components for direct delivery to the subcontractor",
+      "B": "Invoice the subcontractor for consumed components",
+      "C": "Create an outbound delivery for components to be provided",
+      "D": "Create a sales order for components to be provided",
+      "E": "Post subsequent adjustment of component consumption"
+    },
+    "answers": ["A", "C", "E"]
+  },
+  {
+    "question": "You enter a supplier invoice for a purchase order that has already been delivered. Apart from the purchase order itself, what can you use as a reference?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Goods receipt",
+      "B": "Inbound delivery",
+      "C": "Delivery note",
+      "D": "Bill of lading"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "You have agreed on a value contract with a supplier for packaging. The exact materials and their purchase prices are NOT specified until the release orders. Which item category must you use when creating the contract?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "W (Material group)",
+      "B": "M (Material unknown)",
+      "C": "B (Limit)",
+      "D": "T (Text)"
+    },
+    "answers": ["A"]
+  },
+  {
+    "question": "You create a blanket purchase order for several minor repairs that may occur during the year. Which of the following data must you enter?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "An invoicing plan type",
+      "B": "An account assignment category",
+      "C": "A net purchase order price",
+      "D": "An overall limit value"
+    },
+    "answers": ["B", "D"]
+  },
+  {
+    "question": "In which of the following situations can document parking be used?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "A goods receipt is posted for an item that needs a quality inspection.",
+      "B": "An EDI invoice containing variances is received.",
+      "C": "Account assignment information is missing for an invoice item.",
+      "D": "Account assignment information is missing for a purchase order item."
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "Blocking reason Quality is set for an item in an invoice. What could be the reason for this?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Goods-receipt-based invoice verification is NOT used and the item has the Post to Inspection Stock flag set in its material master.",
+      "B": "Goods-receipt-based invoice verification is used and NO usage decision has been made for the inspection lot for the item.",
+      "C": "Goods-receipt-based invoice verification is NOT used and NO usage decision has been made for any inspection lot for the item.",
+      "D": "Goods-receipt-based invoice verification is used and NO goods receipt has been posted for the item."
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "Which situations lead to an open item on the GR/IR clearing account?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The delivered quantity for a purchase order item is more than the invoiced quantity.",
+      "B": "The ordered quantity for a purchase order item is more than the delivered quantity.",
+      "C": "The invoiced quantity for a purchase order item is more than the delivered quantity.",
+      "D": "The ordered quantity for a purchase order item is more than the invoiced quantity."
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "In your company, you are posting an invoice with a cash discount amount using the posting gross method. What is the result of this in the system?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "The cash discount amount is posted to a cash discount clearing account, which is cleared at the time of payment.",
+      "B": "The cash discount amount is posted from a cash discount clearing account to the stock account or cost account.",
+      "C": "The cash discount amount is NOT considered; it is only posted to a cash discount account when the payment is made.",
+      "D": "The cash discount amount is credited to the stock or cost account."
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "What are some key features of purchase-order-based invoice verification?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Partial deliveries for a purchase order item show up as individual items in the invoice document",
+      "B": "Partial deliveries for a purchase order item are NOT flagged as individual invoice items",
+      "C": "The system proposes the quantity to be invoiced as the difference between the total delivered quantity and the total quantity already invoiced",
+      "D": "The system proposes the total delivered quantity as the quantity to be invoiced"
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "You post an invoice with invoice reduction. What can you observe in the system?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Two accounting documents are created: one for the invoice posting and one for the credit memo posting",
+      "B": "A message is created that can be issued to the supplier as a notification of a credit memo posting",
+      "C": "The invoice is blocked for payment until the supplier confirms the credit memo receipt",
+      "D": "Only one accounting document is created, containing both the invoice and the credit memo postings"
+    },
+    "answers": ["A", "B"]
+  },
+  {
+    "question": "Where can you set the parameter that allows changing the account assignment data for a consumable material during invoice receipt?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "In the material master of the consumable material",
+      "B": "In the account assignment category",
+      "C": "In the item category",
+      "D": "In the purchase order document type"
+    },
+    "answers": ["B"]
+  },
+  {
+    "question": "Which card in the Procurement Overview app can you use to analyze the percentage of all purchase requisition items that require manual intervention during processing?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Purchase Requisition Item Types",
+      "B": "Purchase Requisition Touch Rate",
+      "C": "Monitor Purchase Requisition Items",
+      "D": "Non-Managed Spend"
+    },
+    "answers": ["B"]
+  },
+  {
+    "question": "You want to identify the spend of purchase orders that do NOT have a contract reference, although an existing contract could have been used. What key performance indicator (KPI) provides this information?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Contract leakage",
+      "B": "Off-contract spend",
+      "C": "Unused contracts",
+      "D": "Purchase order value"
+    },
+    "answers": ["A"]
+  },
+  {
+    "question": "What options are available for charts when analyzing a key performance indicator (KPI) report in Purchasing Analytics?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Export to a spreadsheet",
+      "B": "Import from a spreadsheet",
+      "C": "Change the dimensions that are shown",
+      "D": "Select the CDS view to be used"
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "What are some key features of the SAP Smart Business key performance indicator (KPI) tiles used for purchasing analytics?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Insight to Action provides drilldown capabilities and appropriate actions.",
+      "B": "When a tile is changed, the database is updated in real time.",
+      "C": "Smart alert thresholds can be set to update the tile display at different intervals.",
+      "D": "Smart controls, such as smart filter and smart charts, are available."
+    },
+    "answers": ["A", "D"]
+  },
+  {
+    "question": "How can you personalize the Procurement Overview app?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Use your user settings to define which cards to show and hide",
+      "B": "Define your own layout and save it as a tile on the SAP Fiori launchpad",
+      "C": "Exchange a card with another card accessed by the same CDS view",
+      "D": "Filter the contents of all cards according to a specific supplier",
+      "E": "Use the drag-and-drop functionality to rearrange cards"
+    },
+    "answers": ["A", "D", "E"]
+  },
+  {
+    "question": "What happens when you set the Freeze Book Inventory indicator in a physical inventory document header?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "The system blocks all inventory management units of the physical inventory document for procurement.",
+      "B": "The book inventory is determined and fixed in the physical inventory document at the beginning of the count.",
+      "C": "The book inventory is determined and fixed in the physical inventory document at the time of the difference posting.",
+      "D": "The system blocks all inventory management units of the physical inventory document for goods movements."
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "What are some of the consequences of setting the Delivery Completed indicator in a purchase order (PO) item?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Further goods receipts for the PO item are not expected but are possible.",
+      "B": "The PO item is no longer relevant for material requirements planning.",
+      "C": "The commitment for the PO item increases.",
+      "D": "The order quantity of the PO item is still open."
+    },
+    "answers": ["A", "B"]
+  },
+  {
+    "question": "You want to manually post an initial entry of stock for a material in SAP S/4HANA. You want to enter both a quantity and an amount. How do you proceed?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "On the SAP Fiori launchpad, use the Manage Stock app",
+      "B": "On the SAP Fiori launchpad, use the Debit/Credit Inventory Values app",
+      "C": "In the SAP GUI, use transaction MIGO",
+      "D": "On the SAP Fiori launchpad, use the Post Goods Movement app"
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "Which of the following prerequisites must be met for the system to check the shelf life of materials at goods receipt?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The shelf life expiration date check is activated for the movement type in Customizing",
+      "B": "The total shelf life is maintained in the purchasing info record",
+      "C": "The purchase order item contains the remaining shelf life",
+      "D": "The shelf life expiration date check is activated for the material type in Customizing"
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "What are some of the prerequisites to use a stock determination strategy for a material in inventory management?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Customize a cross-application strategy for stock determination",
+      "B": "Assign a stock determination strategy to the material type in Customizing",
+      "C": "Customize a stock determination rule and assign it to the storage type",
+      "D": "Assign a stock determination rule to the business transaction in Customizing",
+      "E": "Assign a stock determination group in the material master record"
+    },
+    "answers": ["A", "D", "E"]
+  },
+  {
+    "question": "Which of the following does the movement type control?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Selection of the storage location at goods receipt",
+      "B": "Determination of the shipping point for deliveries",
+      "C": "Quantity and value updates when posting a goods movement",
+      "D": "Field selection when recording a goods movement",
+      "E": "Account determination for financial posting"
+    },
+    "answers": ["C", "D", "E"]
+  },
+  {
+    "question": "How can you post a goods issue to a production order?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Manually, by setting the Final Issue indicator for the reservation",
+      "B": "Manually, as a planned goods issue with reference to a reservation",
+      "C": "Automatically, by using backflushing",
+      "D": "Periodically, on the basis of inventory differences",
+      "E": "Manually, as an unplanned goods issue, using movement type 261"
+    },
+    "answers": ["B", "C", "E"]
+  },
+  {
+    "question": "You create a reservation manually. Which of the following options do you have?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "You can set the Movement Allowed indicator per item",
+      "B": "You can enter a different movement type for each item",
+      "C": "You can specify a different account assignment object for each item",
+      "D": "You can use an existing reservation as a reference"
+    },
+    "answers": ["A", "D"]
+  },
+  {
+    "question": "You test the various options that SAP S/4HANA offers for stock transfers between two different plants within the same company code. Which of the following apply to stock transport orders?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "You can post the goods issue from quality inspection stock in the supplying plant",
+      "B": "You can enter delivery costs in the stock transport order",
+      "C": "You can post the goods receipt to blocked stock in the receiving plant",
+      "D": "Two accounting documents are created at the time of goods issue posting – one for each plant",
+      "E": "The material on the road is managed as stock in transit in the receiving plant"
+    },
+    "answers": ["B", "C", "E"]
+  },
+  {
+    "question": "Your MRP run detects a shortage of 2000 pieces for a material with an active quota arrangement. Each of your two suppliers can only supply 1000 pieces at once. What must you maintain to have MRP generate a procurement proposal for 1000 pieces for each supplier?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Set a maximum lot size in the quota arrangement item and select the 1x checkbox",
+      "B": "Assign a rounding profile in the material master record of the planned material",
+      "C": "Assign the indicator for quota splitting to the lot-sizing procedure being used",
+      "D": "Set a maximum quota quantity in the quota arrangement item for each supplier"
+    },
+    "answers": ["A", "C"]
+  },
+  {
+    "question": "Which of the following SAP Fiori apps must you use to set up the following Situation Handling use case: Quantity Deficit in Supplier's Delivery?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Manage Situation Types",
+      "B": "Manage Teams and Responsibilities",
+      "C": "Manage Situation Objects",
+      "D": "Monitor Situations"
+    },
+    "answers": ["A", "B"]
+  },
+  {
+    "question": "Which of the following can you control with the confirmation control key?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Whether a goods receipt needs to be confirmed",
+      "B": "Whether reminders for outstanding confirmations are required",
+      "C": "Whether a confirmation type is relevant for MRP",
+      "D": "Whether a confirmation type is a prerequisite for a goods receipt"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "How can you completely block a material for procurement in a plant?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Create a blocking entry in the supplier master record",
+      "B": "Create a quota arrangement entry with a quantity of zero",
+      "C": "Use a relevant plant-specific material status in the material master",
+      "D": "Create an entry in the source list with a blocking indicator and NO supplier"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "For which of the following business scenarios does a situation template exist in Situation Handling?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The due date for a blocked invoice has passed.",
+      "B": "A supplier confirmation is pending.",
+      "C": "A contract is ready as a source of supply.",
+      "D": "A purchase order approval is pending."
+    },
+    "answers": ["B", "D"]
+  },
+  {
+    "question": "You have several valid purchasing info records for one specific material available in your system. What is the system behavior when you manually create a purchase requisition?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The system will choose the info record with the lowest price.",
+      "B": "The system will list all valid records and the user needs to select one.",
+      "C": "The system will list all valid records and propose the cheapest one.",
+      "D": "The system will choose the most recent info record."
+    },
+    "answers": ["B", "C"]
+  },
+  {
+    "question": "You want to use automatic conversion of purchase requisitions into purchase orders for some raw materials. What are the prerequisites?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "A contract with plant-specific conditions exists for the material and the vendor.",
+      "B": "The Automatic Purchase Order indicator is set in the plant-specific purchasing data of the material master record.",
+      "C": "The Automatic Purchase Order indicator is set in the purchasing data of the business partner master record.",
+      "D": "A source of supply containing valid conditions is assigned to the purchase requisition.",
+      "E": "A plant-specific source list entry exists for the material."
+    },
+    "answers": ["B", "C", "D"]
+  },
+  {
+    "question": "Which of the following assignments can you configure?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "The allowed item categories for each document type",
+      "B": "The allowed item categories for each account assignment category",
+      "C": "The allowed account assignment categories for each document type",
+      "D": "The allowed account assignment categories for each item category"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "You send newly created purchase orders to a supplier via EDI, whereas quantity or price changes are transmitted by e-mail. What prerequisites must be met if you are using the condition technique for message determination?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "The Price and Quantity fields are relevant for printout changes.",
+      "B": "The condition record contains the Price and Quantity fields.",
+      "C": "You have configured different message types for the New and Change print options.",
+      "D": "The dispatch time related to the change message needs to be set to 1 (send with periodically scheduled job).",
+      "E": "The New Message Determination Process for Change Messages indicator is flagged in Customizing."
+    },
+    "answers": ["C", "D", "E"]
+  },
+  {
+    "question": "What can you control with a document type in purchasing?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Item number interval",
+      "B": "Number range",
+      "C": "Allowed item categories",
+      "D": "Confirmation control",
+      "E": "Allowed account assignment categories"
+    },
+    "answers": ["A", "B", "C"]
+  },
+  {
+    "question": "In the standard system, a controllable system message is shown when a user creates a purchase order with a delivery date in the past. What must you configure to allow such purchase orders to only be created by authorized users?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Copy the system message to a new version. Set it as an error message. Assign the version with user parameter MSV to non-authorized users.",
+      "B": "Copy the system message to a new version. Set it as a warning message. Assign the version with user parameter MSV to the authorized users.",
+      "C": "Copy the system message to a new version. Set it as an error message. Assign the version with user parameter MSV to the authorized users.",
+      "D": "Copy the system message to a new version. Set it as a warning message. Assign the version with user parameter MSV to non-authorized users."
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "For which of the following document categories can you perform an item-wise release in the flexible workflow for purchasing?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Purchase order",
+      "B": "Request for quotation",
+      "C": "Purchase requisition",
+      "D": "Scheduling agreement"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "At which level do you activate SAP S/4HANA output management for purchasing documents?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Application object",
+      "B": "Purchasing organization",
+      "C": "Document type",
+      "D": "Document category"
+    },
+    "answers": ["A"]
+  },
+  {
+    "question": "Which of the following are prerequisites for flexible workflows for purchase order approval?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Set up the preconditions for the flexible workflow in the SAP Fiori app \"Manage Workflows for Purchase Order\"",
+      "B": "Activate the flexible workflow for purchase orders in Customizing",
+      "C": "Create a class with flexible workflow characteristics for purchase orders",
+      "D": "Deactivate the classic release procedure for purchase orders in Customizing",
+      "E": "Define the recipients for the flexible workflow in the SAP Fiori app \"Manage Workflows for Purchase Orders\""
+    },
+    "answers": ["A", "B", "E"]
+  },
+  {
+    "question": "In your project, you need to make sure that consignment purchase orders utilize a different number range than other purchase orders. What must you do?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "Customize a new document category, assign a new number range, and assign the item category for consignment only to this category",
+      "B": "Customize a new document type, assign a new number range object, and assign the item category for consignment to this type",
+      "C": "Customize a new document category, assign a new number range object, and assign the item category for consignment only to this category",
+      "D": "Customize a new document type, assign a new number range, and assign the item category for consignment only to this type"
+    },
+    "answers": ["D"]
+  },
+  {
+    "question": "How does SAP Fiori achieve the role-based design principle?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "By defining SAP Fiori apps that users can tailor exactly to their needs",
+      "B": "By giving end users exactly what they need for their work",
+      "C": "By separating transactional and analytical apps in different business roles",
+      "D": "By decomposing big transactions into several discrete apps suited to the user's role"
+    },
+    "answers": ["B", "D"]
+  },
+  {
+    "question": "What are the different types of SAP Fiori apps?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Interactive",
+      "B": "Transactional",
+      "C": "KPI report",
+      "D": "Analytical",
+      "E": "Fact sheet"
+    },
+    "answers": ["B", "D", "E"]
+  },
+  {
+    "question": "Which of the following are possible personalization options of the SAP Fiori launchpad?",
+    "instruction": "There are 2 correct answers to this question.",
+    "options": {
+      "A": "Add tile groups to business roles",
+      "B": "Add new catalogs",
+      "C": "Add tiles to existing tile groups",
+      "D": "Add new tile groups"
+    },
+    "answers": ["C", "D"]
+  },
+  {
+    "question": "What is one difference between the SAP Fiori launchpad and the classical SAP graphical user interface (SAP GUI)?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "The SAP Fiori launchpad can be personalized, while SAP GUI cannot be personalized.",
+      "B": "The SAP Fiori launchpad provides maintenance of favorites and file access, while SAP GUI only provides maintenance of favorites.",
+      "C": "The SAP Fiori launchpad is role-based, while SAP GUI often offers single complex transactions for many user roles.",
+      "D": "The SAP Fiori launchpad enables browser-based transactions, while SAP GUI does not."
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "What are some SAP recommended guiding principles to achieve clean core operations?",
+    "instruction": "There are 3 correct answers to this question.",
+    "options": {
+      "A": "Integrate clean core practices in the end-to-end value process chain.",
+      "B": "Establish an organizational structure, technical foundation, and transformation methodology for clean core.",
+      "C": "Define roles and responsibilities as part of a process transformation office.",
+      "D": "Establish release management.",
+      "E": "Establish regular housekeeping tasks and procedures."
+    },
+    "answers": ["A", "D", "E"]
+  },
+  {
+    "question": "You are a consultant on an SAP S/4HANA Cloud brownfield project. Several mission critical business processes have been successfully remodeled in accordance with clean core principles. You must now create the necessary workflows. Which of the following SAP Signavio solutions can be used to create the workflows?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "SAP Signavio Process Manager",
+      "B": "SAP Signavio Process Insights",
+      "C": "SAP Signavio Process Governance",
+      "D": "SAP Signavio Process Intelligence"
+    },
+    "answers": ["C"]
+  },
+  {
+    "question": "You are a consultant on an SAP S/4HANA Cloud brownfield project. In a meeting the customer decides to remodel an existing business process in accordance with clean core principles. Which of the following SAP Signavio solutions can be used for the remodeling?",
+    "instruction": "Please choose the correct answer.",
+    "options": {
+      "A": "SAP Signavio Process Insights",
+      "B": "SAP Signavio Process Governance",
+      "C": "SAP Signavio Process Manager",
+      "D": "SAP Signavio Process Intelligence"
+    },
+    "answers": ["C"]
+  }
+]
+

@@ -1,4 +1,4 @@
-from utils.loader import load_progress, save_progress
+from loader import load_progress, save_progress
 
 def get_today_batch(flashcards, day):
     start = (day - 1) * 40

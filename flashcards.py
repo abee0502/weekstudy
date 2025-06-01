@@ -130,5 +130,3 @@ def run_flashcard_mode(questions, day):
 
         st.success("✅ Progress for today has been reset.")
         st.rerun()
-
-after i complete each round of 40 questons . i have want to see my accuracy % and be able to start over again the round. give me the complete code

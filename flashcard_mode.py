@@ -8,116 +8,127 @@ from scoring import record_attempt
 def run_flashcard_mode():
     """
     Implements Flashcard Mode for the chosen day:
-      - Picks one random unanswered question.
-      - Forces the user to select at least one option before accepting submission.
-      - After a valid submission, shows instant feedback with correct answer(s),
-        THEN picks a new random unanswered question on the next rerun.
-      - Maintains a 'rounds' counter in session_state for number of submissions this session.
+      1. On first run (or when session_state["current_qid"] is missing), pick a random unanswered question.
+      2. Display rounds counter and (if present) last feedback above the current question.
+      3. Show the question + checkboxes + “Submit Answer” button.
+      4. If the user clicks “Submit Answer” with no selection → show warning.
+         If they select at least one:
+          • Evaluate correctness, record attempt (which also increments mistakes if wrong),
+          • Increment rounds,
+          • Set session_state["last_feedback"] to a string that always includes the correct answer(s),
+          • Immediately pick a new random unanswered question (if any) by updating session_state["current_qid"].
+      5. Because Streamlit automatically reruns on form submission, the same Python script runs again:
+          • The new session_state["current_qid"] is used to show the next question.
+          • The session_state["last_feedback"] is displayed above it.
+      6. Repeat until no unanswered remain, then show a “done” message.
     """
 
-    # ─── Load all flashcards and current progress (to know 'day' and 'answered' set)
+    # ─── Load all flashcards and current progress (to know day & which are answered) ─────────
     all_flashcards = load_flashcards()
     prog = load_progress()
     day = prog.get("day", 1)
 
     st.header(f"Day {day} Flashcard Mode")
 
-    # ─── Get today’s 40‐question slice and 'answered' dictionary
+    # ─── Compute today’s slice of 40 questions and which ones remain unanswered ─────────────
     daily_batch = get_today_batch(all_flashcards, day)
-    answered_dict = prog.get("answered", {})  # { "qid_str": "correct"/"wrong", ... }
+    answered_dict = prog.get("answered", {})  # e.g. { "1": "correct", "2": "wrong", ... }
 
-    # ─── Build list of unanswered cards for today
-    unanswered = [card for card in daily_batch if str(card["id"]) not in answered_dict]
+    unanswered = [
+        card for card in daily_batch 
+        if str(card["id"]) not in answered_dict
+    ]
 
+    # If none remain, show completion and return
     if not unanswered:
         st.success("🎉 All questions for today have been answered!")
         return
 
-    # ─── Initialize or pick a new 'current_qid' if needed
-    # If "awaiting_feedback" is True, we do not pick a new question until user has seen feedback.
-    if ("awaiting_feedback" not in st.session_state) or (st.session_state.get("awaiting_feedback") is False):
-        # If there's no current_qid, pick one.
-        if "current_qid" not in st.session_state:
-            chosen = random.choice(unanswered)
-            st.session_state["current_qid"] = chosen["id"]
-            st.session_state["feedback"] = None
-            st.session_state["awaiting_feedback"] = False
-
-    current_qid = st.session_state["current_qid"]
-    card = next(c for c in daily_batch if c["id"] == current_qid)
-
-    # ─── Initialize or maintain 'rounds' counter in session_state
+    # ─── Initialize session_state["rounds"] if needed ───────────────────────────────────
     if "rounds" not in st.session_state:
         st.session_state["rounds"] = 0
 
-    # ─── Display the rounds counter at the top
+    # ─── If no "current_qid" in session_state, pick one at random from unanswered ────────
+    if "current_qid" not in st.session_state:
+        chosen = random.choice(unanswered)
+        st.session_state["current_qid"] = chosen["id"]
+        st.session_state["last_feedback"] = None
+
+    # ─── Display how many attempts have been made this session ────────────────────────────
     st.subheader(f"Flashcard Attempts This Session: {st.session_state['rounds']}")
 
-    # ─── If there is feedback from the last submission, show it first
-    if st.session_state.get("feedback"):
-        st.write(st.session_state["feedback"])
+    # ─── If there is “last_feedback” from a previous submission, show it above ────────────
+    if st.session_state.get("last_feedback"):
+        st.write(st.session_state["last_feedback"])
         st.write("---")
 
-    # ─── Display the question and instruction
+    # ─── Fetch the current question’s dict by ID ─────────────────────────────────────────
+    current_qid = st.session_state["current_qid"]
+    card = next(c for c in daily_batch if c["id"] == current_qid)
+
+    # ─── Display the question text and instruction ───────────────────────────────────────
     st.markdown(f"**Q{current_qid}: {card['question']}**")
     st.markdown(f"*{card['instruction']}*")
 
-    # ─── Render the form for this single flashcard (only if not awaiting feedback)
-    if not st.session_state.get("awaiting_feedback", False):
-        with st.form(key=f"fc_single_form_{current_qid}", clear_on_submit=False):
-            selected = []  # will collect selected letters
-            for letter, text in card["options"].items():
-                if st.checkbox(f"{letter}. {text}", key=f"fc_{current_qid}_{letter}"):
-                    selected.append(letter)
+    # ─── Build a form for this single flashcard question ─────────────────────────────────
+    with st.form(key=f"fc_form_{current_qid}", clear_on_submit=False):
+        selected = []  # collect which letters are checked
 
-            submitted = st.form_submit_button("Submit Answer")
+        for letter, text in card["options"].items():
+            if st.checkbox(f"{letter}. {text}", key=f"fc_{current_qid}_{letter}"):
+                selected.append(letter)
 
-            if submitted:
-                # If no option was selected, show a warning and do NOT proceed
-                if not selected:
-                    st.warning("⚠️ Please select at least one option before submitting.")
+        submitted = st.form_submit_button("Submit Answer")
+
+        if submitted:
+            # 1) If no option selected → show warning, stay on same question
+            if not selected:
+                st.warning("⚠️ Please select at least one option before submitting.")
+            else:
+                # 2) Evaluate correctness
+                correct_set = set(card["answers"])
+                selected_set = set(selected)
+
+                if selected_set == correct_set:
+                    is_correct = True
+                    corr_letters = ", ".join(sorted(correct_set))
+                    feedback_msg = f"✅ Correct! (Answer: {corr_letters})"
                 else:
-                    correct_set = set(card["answers"])
-                    selected_set = set(selected)
+                    is_correct = False
+                    corr_letters = ", ".join(sorted(correct_set))
+                    feedback_msg = f"❌ Wrong. Correct answer(s): {corr_letters}"
 
-                    # Determine correctness
-                    if selected_set == correct_set:
-                        is_correct = True
-                        # Always show the correct answer(s) even if correct
-                        corr_letters = ", ".join(sorted(correct_set))
-                        feedback_msg = f"✅ Correct! (Answer: {corr_letters})"
-                    else:
-                        is_correct = False
-                        corr_letters = ", ".join(sorted(correct_set))
-                        feedback_msg = f"❌ Wrong. Correct answer(s): {corr_letters}"
+                # 3) Record the attempt (updates user_progress and mistakes.json if wrong)
+                record_attempt(current_qid, is_correct)
 
-                    # Record the attempt:
-                    #  - Marks question as "correct" or "wrong" in user_progress.json
-                    #  - If wrong, increments its count in mistakes.json
-                    record_attempt(current_qid, is_correct)
+                # 4) Increment the rounds counter
+                st.session_state["rounds"] += 1
 
-                    # Increment the 'rounds' counter
-                    st.session_state["rounds"] += 1
+                # 5) Save feedback in session_state for display
+                st.session_state["last_feedback"] = feedback_msg
 
-                    # Store feedback so that on the next rerun it appears above
-                    st.session_state["feedback"] = feedback_msg
+                # 6) Pick a new random unanswered question (if any remain)
+                prog_after = load_progress()
+                answered_after = prog_after.get("answered", {})
+                still_unanswered = [
+                    c for c in daily_batch 
+                    if str(c["id"]) not in answered_after
+                ]
 
-                    # Mark that we are now waiting for the user to see feedback;
-                    # do NOT pick a new question until the next rerun
-                    st.session_state["awaiting_feedback"] = True
+                if still_unanswered:
+                    new_card = random.choice(still_unanswered)
+                    st.session_state["current_qid"] = new_card["id"]
+                else:
+                    # If none remain, clear current_qid so next run shows “done”
+                    del st.session_state["current_qid"]
 
-    # ─── After handling submission (and possibly feedback), check if we should pick a new question
-    # On the next rerun, since awaiting_feedback is True, we first show feedback.
-    # Then we clear that flag and pick a new random unanswered question.
-    elif st.session_state.get("awaiting_feedback", False):
-        # User has seen the feedback; now clear and pick next question
-        st.session_state["awaiting_feedback"] = False
-        del st.session_state["current_qid"]
-        # Let Streamlit rerun automatically; the next run will hit the "not awaiting_feedback" block
-        st.experimental_rerun()
+                # No need for st.experimental_rerun()—Streamlit will rerun automatically after form submission.
 
-    # ─── Show how many remain unanswered
-    prog_after = load_progress()
-    answered_after = prog_after.get("answered", {})
-    updated_unanswered = [c for c in daily_batch if str(c["id"]) not in answered_after]
-    st.write(f"Remaining unanswered today: **{len(updated_unanswered)}/{len(daily_batch)}**")
+    # ─── After form (and possible automatic rerun), show how many are still unanswered ─────
+    prog_latest = load_progress()
+    answered_latest = prog_latest.get("answered", {})
+    still_unanswered = [
+        c for c in daily_batch 
+        if str(c["id"]) not in answered_latest
+    ]
+    st.write(f"Remaining unanswered today: **{len(still_unanswered)}/{len(daily_batch)}**")

@@ -1,7 +1,7 @@
 import streamlit as st
-from utils.loader import load_flashcards
-from utils.session import get_today_batch, increment_day
-from utils.scoring import save_answer, get_progress, reset_progress
+from loader import load_flashcards
+from session import get_today_batch, increment_day
+from scoring import save_answer, get_progress, reset_progress
 
 flashcards = load_flashcards()
 day = st.session_state.get("day", 1)

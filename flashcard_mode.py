@@ -1,3 +1,19 @@
+# ───────────────────────────────────────────────────────────────────────────────
+# flashcard_mode.py
+#
+# Simplified Flashcard Mode (all on one page, explicit “Next Question”):
+# - Uses today’s slice of 40 from flashcards.json (via session.get("day")).
+# - Creates a random order once, stored in session_state["flash_order"].
+# - Shows one question at a time:
+#     • Checkboxes for options, “Submit Answer” button.
+#     • Blocks submit if no option selected.
+#     • After valid submit: shows feedback (✅/❌ + correct answers) and “Next Question” button.
+#     • Only on “Next Question” click does it advance to the next question.
+# - Tracks “rounds” in session_state["rounds"].
+# - Marks each question as answered in user_progress.json (via record_attempt), and increments mistakes if wrong.
+# - When all 40 are done, shows a “🎉 Done!” message.
+# ───────────────────────────────────────────────────────────────────────────────
+
 import streamlit as st
 import random
 

@@ -1,4 +1,4 @@
-from utils.loader import load_progress, save_progress
+from loader import load_progress, save_progress
 
 def save_answer(qid, correct):
     progress = load_progress()

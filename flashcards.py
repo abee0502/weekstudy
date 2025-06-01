@@ -39,7 +39,7 @@ def run_flashcard_mode(questions, day):
 
         random.shuffle(unanswered)
         st.session_state.flashcard_order = unanswered
-        st.session_state.flashcard_index = 0
+        st.session_state.flashcard_index = len(answered_ids)
         st.session_state.flashcard_submitted = False
         st.session_state.selected_options = set()
 

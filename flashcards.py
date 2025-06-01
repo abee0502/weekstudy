@@ -35,42 +35,11 @@ def run_flashcard_mode(questions, day):
         st.session_state.selected_options = set()
 
     # ─── Current question setup ──────────────────────────────────────────
-    '''
     if st.session_state.flashcard_index >= len(st.session_state.flashcard_order):
         st.success("🎉 You've completed all questions for this round.")
         del st.session_state.flashcard_index
         del st.session_state.flashcard_order
         return
-    '''
-    if st.session_state.flashcard_index >= len(st.session_state.flashcard_order):
-        total_questions = len(st.session_state.flashcard_order)
-        correct_count = total_questions
-    # Optional: read from answered_ids to validate score if partial allowed
-        score_percentage = (correct_count / total_questions) * 100
-
-        st.success(f"🎉 You've completed all questions for this round.")
-        st.info(f"Your score: {score_percentage:.0f}%")
-
-    # Clear session state but allow new round trigger
-        if st.button("🔄 Start a New Round"):
-            from utils import save_json, load_json
-
-            today_key = f"day{day}"
-            answered_data = load_json(ANSWERED_FILE, {})
-            answered_data[today_key] = []
-            save_json(ANSWERED_FILE, answered_data)
-    
-            # Remove round order to reshuffle
-            flashcard_state = load_json("flashcard_state.json")
-            flashcard_state.pop(today_key, None)
-            save_json("flashcard_state.json", flashcard_state)
-    
-            # Clear session
-            for k in ["flashcard_index", "flashcard_order", "flashcard_submitted"]:
-                st.session_state.pop(k, None)
-
-            st.rerun()
-        
 
     idx = st.session_state.flashcard_order[st.session_state.flashcard_index]
     q = questions[idx]

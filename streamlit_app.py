@@ -1,45 +1,37 @@
 import streamlit as st
-import random
 
-from loaders import load_flashcards, load_progress
-from session import get_today_batch, increment_day, reset_day
-from scoring import save_answer, get_progress_counts, reset_all_answers
-
-# ───────────────────────────────────────────────────────────────────────────────
-# Page configuration
-st.set_page_config(
-    page_title="7-Day Flashcard Memorization",
-    layout="wide"
-)
+from session import get_today_batch
+from scoring import get_progress_counts, reset_all_answers
+from quiz_mode import run_quiz_mode
+from flashcard_mode import run_flashcard_mode
+from mistake_review import run_mistake_review
 
 # ───────────────────────────────────────────────────────────────────────────────
-# Load data & progress
-all_flashcards = load_flashcards()
-prog = load_progress()
-day = prog.get("day", 1)
+# Main Streamlit entry point
+st.set_page_config(page_title="7-Day Flashcard App", layout="wide")
 
-# Today's 40-question slice
-daily_batch = get_today_batch(all_flashcards, day)
-answered_dict = prog.get("answered", {})  # { "qid_str": "correct"/"partial"/"wrong", ... }
+st.title("7-Day Flashcard App")
 
-# ───────────────────────────────────────────────────────────────────────────────
 # Sidebar: Mode Selector + Navigation
 with st.sidebar:
     st.header("Mode Selector")
-    mode = st.radio("Choose mode:", ["Quiz", "Flashcard", "Review"])
+    mode = st.radio("Choose mode:", ["Quiz", "Flashcard", "Mistake Review", "Review Only"])
 
     st.write("---")
     st.header("Progress Tracker")
     counts = get_progress_counts()
     st.write(f"Day: **{counts['day']}/7**")
-    st.write(f"Answered Today: **{counts['answered_today']}/{len(daily_batch)}**")
+    # We need to know how many questions in today's day. 
+    # We can approximate by reading flashcards and slicing, but for simplicity, show answered_today only.
+    st.write(f"Answered Today: **{counts['answered_today']}**")
     st.write(f"Total Answered: **{counts['total_answered']}/278**")
     st.write("---")
 
     if st.button("Next Day"):
-        if counts["answered_today"] < len(daily_batch):
-            st.warning("Please answer all questions for today before moving on.")
+        if counts["answered_today"] < 40:
+            st.warning("You must answer all 40 questions for today before advancing.")
         else:
+            from session import increment_day
             increment_day()
             st.experimental_rerun()
 
@@ -48,9 +40,27 @@ with st.sidebar:
         st.experimental_rerun()
 
 # ───────────────────────────────────────────────────────────────────────────────
-# REVIEW MODE: Show all questions + correct answers
-if mode == "Review":
-    st.title(f"Review: Day {day} Questions + Correct Answers")
+# Depending on mode, call the appropriate function
+if mode == "Quiz":
+    run_quiz_mode()
+
+elif mode == "Flashcard":
+    run_flashcard_mode()
+
+elif mode == "Mistake Review":
+    run_mistake_review()
+
+elif mode == "Review Only":
+    # “Review Only” is same as showing all questions + correct answers for today.
+    from loaders import load_flashcards, load_progress
+    from session import get_today_batch
+
+    all_flashcards = load_flashcards()
+    prog = load_progress()
+    day = prog.get("day", 1)
+    daily_batch = get_today_batch(all_flashcards, day)
+
+    st.header(f"Review: Day {day} Questions + Correct Answers")
     for card in daily_batch:
         qid = card["id"]
         st.markdown(f"**Q{qid}: {card['question']}**")
@@ -60,139 +70,3 @@ if mode == "Review":
         correct_letters = ", ".join(card["answers"])
         st.success(f"Correct answer(s): {correct_letters}")
         st.write("---")
-    st.stop()
-
-# ───────────────────────────────────────────────────────────────────────────────
-# QUIZ MODE: All questions on one page
-if mode == "Quiz":
-    st.title(f"Day {day} Quiz Mode – Select & Submit Answers")
-
-    for card in daily_batch:
-        qid = card["id"]
-        st.markdown(f"**Q{qid}: {card['question']}**")
-        st.markdown(f"*{card['instruction']}*")
-
-        # If already answered, display result
-        if str(qid) in answered_dict:
-            result = answered_dict[str(qid)]
-            if result == "correct":
-                st.success("✅ You answered this correctly.")
-            elif result == "partial":
-                corr = ", ".join(card["answers"])
-                st.warning(f"⚠️ Partially correct. Correct answer(s): {corr}")
-            else:  # "wrong"
-                corr = ", ".join(card["answers"])
-                st.error(f"❌ Wrong. Correct answer(s): {corr}")
-            st.write("---")
-            continue
-
-        # Otherwise, show checkboxes + submit button
-        with st.form(key=f"quiz_form_{qid}", clear_on_submit=False):
-            selected = []
-            for letter, text in card["options"].items():
-                if st.checkbox(f"{letter}. {text}", key=f"{qid}_{letter}"):
-                    selected.append(letter)
-
-            submitted = st.form_submit_button("Submit")
-            if submitted:
-                correct_set = set(card["answers"])
-                selected_set = set(selected)
-
-                if selected_set == correct_set:
-                    outcome = "correct"
-                    st.success("✅ Correct!")
-                elif selected_set & correct_set:
-                    outcome = "partial"
-                    corr_letters = ", ".join(card["answers"])
-                    st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
-                else:
-                    outcome = "wrong"
-                    corr_letters = ", ".join(card["answers"])
-                    st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
-
-                save_answer(qid, outcome)
-
-        st.write("---")
-
-# ───────────────────────────────────────────────────────────────────────────────
-# FLASHCARD MODE: One random unanswered question at a time with instant feedback
-if mode == "Flashcard":
-    st.title(f"Day {day} Flashcard Mode")
-
-    # Build list of unanswered cards
-    unanswered = [card for card in daily_batch if str(card["id"]) not in answered_dict]
-
-    if not unanswered:
-        st.success("🎉 All questions for today have been answered!")
-        st.stop()
-
-    # Select a card if none in session_state or if it was just answered
-    if "flashcard_qid" not in st.session_state or str(st.session_state.flashcard_qid) in answered_dict:
-        chosen = random.choice(unanswered)
-        st.session_state.flashcard_qid = chosen["id"]
-        st.session_state.flashcard_submitted = False
-        st.session_state.flashcard_result = None
-
-    current_qid = st.session_state.flashcard_qid
-    card = next(c for c in daily_batch if c["id"] == current_qid)
-
-    st.markdown(f"**Q{current_qid}: {card['question']}**")
-    st.markdown(f"*{card['instruction']}*")
-
-    # If the user has not yet submitted an answer for this flashcard:
-    if not st.session_state.flashcard_submitted:
-        with st.form(key=f"fc_form_{current_qid}", clear_on_submit=False):
-            selected = []
-            for letter, text in card["options"].items():
-                if st.checkbox(f"{letter}. {text}", key=f"fc_{current_qid}_{letter}"):
-                    selected.append(letter)
-
-            submitted = st.form_submit_button("Submit Answer")
-            if submitted:
-                correct_set = set(card["answers"])
-                selected_set = set(selected)
-
-                if selected_set == correct_set:
-                    outcome = "correct"
-                    st.success("✅ Correct!")
-                elif selected_set & correct_set:
-                    outcome = "partial"
-                    corr_letters = ", ".join(card["answers"])
-                    st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
-                else:
-                    outcome = "wrong"
-                    corr_letters = ", ".join(card["answers"])
-                    st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
-
-                # Persist result
-                save_answer(current_qid, outcome)
-
-                # Mark as submitted so we now show feedback + Next button
-                st.session_state.flashcard_submitted = True
-                st.session_state.flashcard_result = outcome
-
-    else:
-        # User has submitted; re‐show feedback and display Next button
-        outcome = st.session_state.flashcard_result
-        if outcome == "correct":
-            st.success("✅ Correct!")
-        elif outcome == "partial":
-            corr_letters = ", ".join(card["answers"])
-            st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
-        else:
-            corr_letters = ", ".join(card["answers"])
-            st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
-
-        # Now show Next Flashcard button on the same page
-        if st.button("Next Flashcard"):
-            # Clear this card’s session keys and rerun to pick a new one
-            del st.session_state.flashcard_qid
-            del st.session_state.flashcard_submitted
-            del st.session_state.flashcard_result
-            st.experimental_rerun()
-
-    # Show how many remain (updated live after submission)
-    prog_after = load_progress()
-    answered_after = prog_after.get("answered", {})
-    updated_unanswered = [c for c in daily_batch if str(c["id"]) not in answered_after]
-    st.write(f"Remaining: **{len(updated_unanswered)}/{len(daily_batch)}** unanswered questions today.")

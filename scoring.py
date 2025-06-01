@@ -2,30 +2,36 @@ from loaders import load_progress, save_progress
 
 QUESTIONS_PER_DAY = 40
 
-def save_answer(qid, is_correct):
+def save_answer(qid, result):
     """
-    Mark question with id = qid (an integer) as "correct" or "wrong".
-    Progress file stores qid as string.
+    Mark question with id = qid (an integer) as:
+      - "correct"   (if exactly all right options were chosen),
+      - "partial"   (if at least one correct option was chosen but not exactly all),
+      - "wrong"     (if none of the correct options was chosen).
+    Stores that string under user_progress.json → "answered".
     """
     prog = load_progress()
     prog.setdefault("answered", {})
-    prog["answered"][str(qid)] = "correct" if is_correct else "wrong"
+    prog["answered"][str(qid)] = result  # result in {"correct", "partial", "wrong"}
     save_progress(prog)
 
 def get_progress_counts():
     """
     Returns a dict:
-      { "day": int,
+      {
+        "day": int,
         "answered_today": int,
-        "total_answered": int }
+        "total_answered": int
+      }
+    Uses load_progress() to count how many question-IDs from today's slice
+    appear in prog["answered"] (regardless of whether correct/partial/wrong).
     """
     prog = load_progress()
     day = prog.get("day", 1)
     answered = prog.get("answered", {})
 
-    # Determine how many of today's IDs have been answered
-    today_start = (day - 1) * QUESTIONS_PER_DAY + 1  # e.g. day=1 → 1..40
-    today_end   = day * QUESTIONS_PER_DAY              # e.g. day=1 → 1..40
+    today_start = (day - 1) * QUESTIONS_PER_DAY + 1
+    today_end   = day * QUESTIONS_PER_DAY
 
     answered_today = 0
     for qid_str in answered.keys():
@@ -45,6 +51,7 @@ def get_progress_counts():
 
 def reset_all_answers():
     """
-    Clears the 'answered' dict and resets day to 1.
+    Clears the entire answered dict and resets day to 1.
+    Overwrites user_progress.json with { "day": 1, "answered": {} }.
     """
     save_progress({"day": 1, "answered": {}})

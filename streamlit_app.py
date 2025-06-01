@@ -87,7 +87,7 @@ if mode == "Quiz":
             continue
 
         # Otherwise, show checkboxes + submit button
-        with st.form(key=f"quiz_form_{qid}"):
+        with st.form(key=f"quiz_form_{qid}", clear_on_submit=False):
             selected = []
             for letter, text in card["options"].items():
                 if st.checkbox(f"{letter}. {text}", key=f"{qid}_{letter}"):
@@ -111,6 +111,7 @@ if mode == "Quiz":
                     st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
 
                 save_answer(qid, outcome)
+
         st.write("---")
 
 # ───────────────────────────────────────────────────────────────────────────────
@@ -125,10 +126,12 @@ if mode == "Flashcard":
         st.success("🎉 All questions for today have been answered!")
         st.stop()
 
-    # Choose or re‐use the current flashcard ID
+    # Select a card if none in session_state or if it was just answered
     if "flashcard_qid" not in st.session_state or str(st.session_state.flashcard_qid) in answered_dict:
         chosen = random.choice(unanswered)
         st.session_state.flashcard_qid = chosen["id"]
+        st.session_state.flashcard_submitted = False
+        st.session_state.flashcard_result = None
 
     current_qid = st.session_state.flashcard_qid
     card = next(c for c in daily_batch if c["id"] == current_qid)
@@ -136,38 +139,57 @@ if mode == "Flashcard":
     st.markdown(f"**Q{current_qid}: {card['question']}**")
     st.markdown(f"*{card['instruction']}*")
 
-    # Build the form for this flashcard
-    with st.form(key=f"fc_form_{current_qid}"):
-        selected = []
-        for letter, text in card["options"].items():
-            if st.checkbox(f"{letter}. {text}", key=f"fc_{current_qid}_{letter}"):
-                selected.append(letter)
+    # If the user has not yet submitted an answer for this flashcard:
+    if not st.session_state.flashcard_submitted:
+        with st.form(key=f"fc_form_{current_qid}", clear_on_submit=False):
+            selected = []
+            for letter, text in card["options"].items():
+                if st.checkbox(f"{letter}. {text}", key=f"fc_{current_qid}_{letter}"):
+                    selected.append(letter)
 
-        submitted = st.form_submit_button("Submit Answer")
-        if submitted:
-            correct_set = set(card["answers"])
-            selected_set = set(selected)
+            submitted = st.form_submit_button("Submit Answer")
+            if submitted:
+                correct_set = set(card["answers"])
+                selected_set = set(selected)
 
-            if selected_set == correct_set:
-                outcome = "correct"
-                st.success("✅ Correct!")
-            elif selected_set & correct_set:
-                outcome = "partial"
-                corr_letters = ", ".join(card["answers"])
-                st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
-            else:
-                outcome = "wrong"
-                corr_letters = ", ".join(card["answers"])
-                st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
+                if selected_set == correct_set:
+                    outcome = "correct"
+                    st.success("✅ Correct!")
+                elif selected_set & correct_set:
+                    outcome = "partial"
+                    corr_letters = ", ".join(card["answers"])
+                    st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
+                else:
+                    outcome = "wrong"
+                    corr_letters = ", ".join(card["answers"])
+                    st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
 
-            # Persist result
-            save_answer(current_qid, outcome)
+                # Persist result
+                save_answer(current_qid, outcome)
 
-            # Show Next Flashcard button immediately (same page)
-            if st.button("Next Flashcard"):
-                # Clear for next selection and rerun
-                del st.session_state.flashcard_qid
-                st.experimental_rerun()
+                # Mark as submitted so we now show feedback + Next button
+                st.session_state.flashcard_submitted = True
+                st.session_state.flashcard_result = outcome
+
+    else:
+        # User has submitted; re‐show feedback and display Next button
+        outcome = st.session_state.flashcard_result
+        if outcome == "correct":
+            st.success("✅ Correct!")
+        elif outcome == "partial":
+            corr_letters = ", ".join(card["answers"])
+            st.warning(f"⚠️ Partially correct. Correct answer(s): {corr_letters}")
+        else:
+            corr_letters = ", ".join(card["answers"])
+            st.error(f"❌ Wrong. Correct answer(s): {corr_letters}")
+
+        # Now show Next Flashcard button on the same page
+        if st.button("Next Flashcard"):
+            # Clear this card’s session keys and rerun to pick a new one
+            del st.session_state.flashcard_qid
+            del st.session_state.flashcard_submitted
+            del st.session_state.flashcard_result
+            st.experimental_rerun()
 
     # Show how many remain (updated live after submission)
     prog_after = load_progress()

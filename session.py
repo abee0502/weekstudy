@@ -5,17 +5,16 @@ MAX_DAYS = 7
 
 def get_today_batch(all_flashcards, day):
     """
-    Given the full list of flashcards and the current day (1–7),
-    returns the slice of questions for that day.
-    If total flashcards < day*40, return whatever remains.
+    Given the full list of flashcards (with 'id'), returns the slice for this day.
+    If there are fewer than day*40 cards total, it simply returns whatever remains.
     """
-    start_index = (day - 1) * QUESTIONS_PER_DAY
-    end_index = day * QUESTIONS_PER_DAY
-    return all_flashcards[start_index:end_index]
+    start_idx = (day - 1) * QUESTIONS_PER_DAY
+    end_idx = day * QUESTIONS_PER_DAY
+    return all_flashcards[start_idx:end_idx]
 
 def increment_day():
     """
-    Loads progress.json, bumps 'day' by 1 (capped at 7), saves back.
+    Bumps day by +1 (capped at MAX_DAYS). Saves back to user_progress.json.
     """
     prog = load_progress()
     current = prog.get("day", 1)
@@ -27,7 +26,6 @@ def increment_day():
 
 def reset_day():
     """
-    Sets day back to 1 and clears all answered records.
+    Resets progress to day 1 with no answered questions.
     """
-    prog = {"day": 1, "answered": {}}
-    save_progress(prog)
+    save_progress({"day": 1, "answered": {}})

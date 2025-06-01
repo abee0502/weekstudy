@@ -53,7 +53,7 @@ def run_flashcard_mode(questions, day):
         progress_data[today_key] = completed_rounds + 1
         save_json(PROGRESS_FILE, progress_data)
 
-        # Offer a button to start a brand-new round of the same 40 questions
+        # Offer a button to start a brand-new round of the same questions
         if st.button("🔄 Start Another Round"):
             # 1) Clear answered_ids for today
             answered_data[today_key] = []
@@ -74,10 +74,10 @@ def run_flashcard_mode(questions, day):
             }
             save_json(ORDER_FILE, flashcard_state)
 
-            # As soon as we update session_state, we return so Streamlit will rerun
-            return
+            # Immediately rerun so the new round appears in this same click
+            st.experimental_rerun()
 
-        return  # nothing else to render after “round completed”
+        return  # no further rendering once the “round completed” UI is up
 
     # ─── Otherwise, show the current question ────────────────────────────
     idx = st.session_state.flashcard_order[st.session_state.flashcard_index]
@@ -153,8 +153,8 @@ def run_flashcard_mode(questions, day):
             }
             save_json(ORDER_FILE, flashcard_state)
 
-            # 4) **Return immediately**, so Streamlit re-runs the script with the new index
-            return
+            # 4) Immediately rerun the app so the next question appears right away
+            st.experimental_rerun()
 
     # ─── Progress Bar & Info at the bottom ──────────────────────────────
     if total > 0:
@@ -175,14 +175,20 @@ def run_flashcard_mode(questions, day):
         progress_data[today_key] = 0
         save_json(PROGRESS_FILE, progress_data)
 
-        # 3) Remove any saved order/index for today
+        # 3) Remove any saved order/index/mistakes for today
         flashcard_state.pop(today_key, None)
         save_json(ORDER_FILE, flashcard_state)
 
         # 4) Clear out all related session_state keys
         for k in list(st.session_state.keys()):
-            if k.startswith("opt_") or k in ["flashcard_index", "flashcard_order", "flashcard_submitted", "correct_count"]:
+            if k.startswith("opt_") or k in [
+                "flashcard_index",
+                "flashcard_order",
+                "flashcard_submitted",
+                "correct_count"
+            ]:
                 del st.session_state[k]
 
         st.success("✅ Progress for today has been reset.")
+        # No need to rerun immediately—on next interaction, it will redraw
         return

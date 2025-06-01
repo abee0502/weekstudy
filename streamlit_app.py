@@ -9,60 +9,61 @@ st.set_page_config(
     layout="wide"
 )
 
-# Load everything
+# ─── Load Data ─────────────────────────────────────────────────────────────────
 all_flashcards = load_flashcards()
 prog = load_progress()
 day = prog.get("day", 1)
 
 st.title(f"Flashcard Practice – Day {day} of 7")
 
-# Get only today's slice
+# ─── Get Today’s 40-Question Slice ──────────────────────────────────────────────
 daily_batch = get_today_batch(all_flashcards, day)
 
-# ─── Main Flashcard Loop ──────────────────────────────────────────────────────
-st.write(f"Total questions for Day {day}: {len(daily_batch)}")
+# Debug prints (optional – remove once things run correctly)
+# st.write(">>> all_flashcards[:2]:", all_flashcards[:2])
+# st.write(">>> daily_batch[:2]:", daily_batch[:2])
+
+# ─── Main Loop: Show Each Question + Options ───────────────────────────────────
+st.write(f"Questions for Day {day}: {len(daily_batch)}")
 progress_counts = get_progress_counts()
 
-# Show each question with its options as buttons
 for card in daily_batch:
-    # card must be a dict with keys "id", "question", "options", "answers"
+    # card is a dict: { "id", "question", "instruction", "options", "answers" }
     qid = card["id"]
-    st.markdown(f"**Q{qid}:** {card['question']}")
+    st.markdown(f"**Q{qid}: {card['question']}**")
+    st.markdown(f"*{card['instruction']}*")
 
-    # Render buttons for each possible option
+    # We have options as a dict, e.g. { "A": "Info records", "B": "Quota arrangements", … }
     cols = st.columns(len(card["options"]))
-    for i, option in enumerate(card["options"]):
+    for i, (letter, text) in enumerate(card["options"].items()):
         with cols[i]:
-            if st.button(option, key=f"{qid}_{option}"):
-                is_correct = option in card["answers"]
+            btn_key = f"{qid}_{letter}"
+            if st.button(f"{letter}. {text}", key=btn_key):
+                is_correct = letter in card["answers"]
                 save_answer(qid, is_correct)
                 if is_correct:
                     st.success("✅ Correct!")
                 else:
-                    st.error("❌ Wrong.")
-                # After answering, prevent double‐click miscounts
+                    st.error(f"❌ Wrong. (Correct: {', '.join(card['answers'])})")
+                # Immediately rerun so you can't double-click
                 st.experimental_rerun()
 
-    st.write("---")  # horizontal separator between cards
+    st.write("---")  # horizontal rule
 
-# ─── Sidebar: Progress + Navigation ───────────────────────────────────────────
+# ─── Sidebar: Progress + Navigation ────────────────────────────────────────────
 with st.sidebar:
     st.header("Progress Tracker")
-    st.write(f"Day: **{day}/7**")
+    st.write(f"Day: **{progress_counts['day']}/7**")
     st.write(f"Answered Today: **{progress_counts['answered_today']}/{len(daily_batch)}**")
     st.write(f"Total Answered: **{progress_counts['total_answered']}/278**")
 
     st.write("---")
     if st.button("Next Day"):
-        # Only allow advancing if they’ve answered all of today's batch
         if progress_counts["answered_today"] < len(daily_batch):
             st.warning("Please answer all questions for today before moving on.")
         else:
             increment_day()
             st.experimental_rerun()
-
-    if st.button("Review Wrong Answers"):
-        st.experimental_rerun()  # you can detect a "mode" and show only wrong ones, see note below
 
     if st.button("Reset All Progress"):
         reset_all_answers()

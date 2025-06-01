@@ -35,25 +35,20 @@ def run_flashcard_mode(questions, day):
 
         st.session_state.flashcard_submitted = False
 
-    # ─── If we've finished all questions for this round ────────────────
+    # ─── If we’ve finished all questions for this round ────────────────
     if st.session_state.flashcard_index >= total:
-        # Compute accuracy
         accuracy = (
             (st.session_state.correct_count / total) * 100
             if total > 0 else
             0.0
         )
-
         st.success("🎉 You've completed all questions for this round.")
-        st.info(
-            f"Your score: {st.session_state.correct_count} / {total}  ({accuracy:.1f}%)"
-        )
+        st.info(f"Your score: {st.session_state.correct_count} / {total}  ({accuracy:.1f}%)")
 
         # Increment “rounds completed” counter
         progress_data[today_key] = completed_rounds + 1
         save_json(PROGRESS_FILE, progress_data)
 
-        # Offer a button to start a brand-new round of the same questions
         if st.button("🔄 Start Another Round"):
             # 1) Clear answered_ids for today
             answered_data[today_key] = []
@@ -66,7 +61,7 @@ def run_flashcard_mode(questions, day):
             st.session_state.flashcard_submitted = False
             st.session_state.correct_count      = 0
 
-            # 3) Overwrite flashcard_state.json on disk with the new values
+            # 3) Overwrite flashcard_state.json on disk
             flashcard_state[today_key] = {
                 "order":         st.session_state.flashcard_order,
                 "index":         st.session_state.flashcard_index,
@@ -74,10 +69,10 @@ def run_flashcard_mode(questions, day):
             }
             save_json(ORDER_FILE, flashcard_state)
 
-            # Immediately rerun so the new round appears in this same click
-            st.experimental_rerun()
+            # Return immediately so Streamlit re-executes the script
+            return
 
-        return  # no further rendering once the “round completed” UI is up
+        return
 
     # ─── Otherwise, show the current question ────────────────────────────
     idx = st.session_state.flashcard_order[st.session_state.flashcard_index]
@@ -109,8 +104,7 @@ def run_flashcard_mode(questions, day):
                 st.markdown(
                     f"**Correct answer(s):** {', '.join(sorted(correct))}"
                 )
-
-                # Log mistake
+                # Log a mistake
                 mistakes     = load_json(MISTAKES_FILE, {})
                 question_key = f"{today_key}_q{idx}"
                 mistakes[question_key] = mistakes.get(question_key, 0) + 1
@@ -124,7 +118,7 @@ def run_flashcard_mode(questions, day):
 
             st.session_state.flashcard_submitted = True
 
-            # Save the updated correct_count / index / order back to disk
+            # Save updated state (order, index, correct_count) to disk
             flashcard_state[today_key] = {
                 "order":         st.session_state.flashcard_order,
                 "index":         st.session_state.flashcard_index,
@@ -137,7 +131,7 @@ def run_flashcard_mode(questions, day):
         if not st.session_state.flashcard_submitted:
             st.warning("⚠️ Please submit your answer before going to the next question.")
         else:
-            # 1) Clear out the checkboxes so they don’t stay checked
+            # 1) Clear out the checkboxes so they don’t remain checked
             for k in q["options"].keys():
                 st.session_state.pop(f"opt_{k}", None)
 
@@ -145,7 +139,7 @@ def run_flashcard_mode(questions, day):
             st.session_state.flashcard_index += 1
             st.session_state.flashcard_submitted = False
 
-            # 3) Save updated index & correct_count to disk
+            # 3) Save updated index & correct_count back to disk
             flashcard_state[today_key] = {
                 "order":         st.session_state.flashcard_order,
                 "index":         st.session_state.flashcard_index,
@@ -153,8 +147,8 @@ def run_flashcard_mode(questions, day):
             }
             save_json(ORDER_FILE, flashcard_state)
 
-            # 4) Immediately rerun the app so the next question appears right away
-            st.experimental_rerun()
+            # 4) Immediately return so Streamlit re-runs with the new index
+            return
 
     # ─── Progress Bar & Info at the bottom ──────────────────────────────
     if total > 0:
@@ -175,11 +169,11 @@ def run_flashcard_mode(questions, day):
         progress_data[today_key] = 0
         save_json(PROGRESS_FILE, progress_data)
 
-        # 3) Remove any saved order/index/mistakes for today
+        # 3) Remove any saved order/index for today
         flashcard_state.pop(today_key, None)
         save_json(ORDER_FILE, flashcard_state)
 
-        # 4) Clear out all related session_state keys
+        # 4) Clear all related session_state keys
         for k in list(st.session_state.keys()):
             if k.startswith("opt_") or k in [
                 "flashcard_index",
@@ -190,5 +184,4 @@ def run_flashcard_mode(questions, day):
                 del st.session_state[k]
 
         st.success("✅ Progress for today has been reset.")
-        # No need to rerun immediately—on next interaction, it will redraw
         return

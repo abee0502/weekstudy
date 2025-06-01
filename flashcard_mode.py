@@ -1,134 +1,199 @@
 import streamlit as st
 import random
+import os
 
 from loaders import load_flashcards, load_progress
 from session import get_today_batch
-from scoring import record_attempt
+from flashcard_storage import (
+    load_answered_ids,
+    save_answered_ids,
+    load_wrong_answers,
+    save_wrong_answers
+)
 
 def run_flashcard_mode():
     """
-    Implements Flashcard Mode for the chosen day:
-      1. On first run (or when session_state["current_qid"] is missing), pick a random unanswered question.
-      2. Display rounds counter and (if present) last feedback above the current question.
-      3. Show the question + checkboxes + “Submit Answer” button.
-      4. If the user clicks “Submit Answer” with no selection → show warning.
-         If they select at least one:
-          • Evaluate correctness, record attempt (which also increments mistakes if wrong),
-          • Increment rounds,
-          • Set session_state["last_feedback"] to a string that always includes the correct answer(s),
-          • Immediately pick a new random unanswered question (if any) by updating session_state["current_qid"].
-      5. Because Streamlit automatically reruns on form submission, the same Python script runs again:
-          • The new session_state["current_qid"] is used to show the next question.
-          • The session_state["last_feedback"] is displayed above it.
-      6. Repeat until no unanswered remain, then show a “done” message.
+    Flashcard Mode (history + progress) for today’s 40 questions:
+      1. Load “day” from user_progress.json; slice out 40 from flashcards.json.
+      2. Maintain:
+         - st.session_state.answered_ids  (set of indices within today's slice already answered)
+         - st.session_state.question_order (a shuffled list of indices 0..(len(today)-1))
+         - st.session_state.history       (a list of indices in the order the user has moved)
+         - st.session_state.history_pos   (the pointer into history)
+         - st.session_state.has_submitted (whether the current question has just been submitted)
+      3. On first run (or after a Reset), initialize all the session_state fields.
+      4. Display the current question (based on history[history_pos]), show checkboxes,
+         and a “Submit Answer” button. If the user hasn't submitted yet, Next/Previous are disabled.
+      5. When Submit is clicked with at least one checkbox:
+         - Compare selected vs. correct. Show ✅/🟡/❌ + correct answer(s).
+         - Increment mistake count for that question if wrong.
+         - Add that index to answered_ids, write to disk.
+         - Set has_submitted = True so that Next/Previous buttons become enabled.
+      6. Next ➡️ only works if has_submitted is True. When Next is clicked:
+         - Build the list of still‐unanswered indices of today’s slice.
+         - Pick the first one in question_order that’s not in answered_ids, or any from unanswered if history_pos is at the end.
+         - Append that new index to history, increment history_pos, set has_submitted = False.
+      7. Previous ⬅️ simply moves history_pos -= 1 (if > 0) and sets has_submitted = False.
+      8. Progress bar shows (history_pos+1)/len(question_order).  Question “{history_pos+1} of {len(question_order)}”.
+      9. A Reset button clears everything (answered_ids file + session_state).  
     """
 
-    # ─── Load all flashcards and current progress (to know day & which are answered) ─────────
+    # ─── Load all flashcards + current day from user_progress.json ───────────────────
     all_flashcards = load_flashcards()
     prog = load_progress()
     day = prog.get("day", 1)
 
-    st.header(f"Day {day} Flashcard Mode")
+    # ─── Get exactly 40 (or fewer if last day) cards for this day ────────────────────
+    today_cards = get_today_batch(all_flashcards, day)
+    total = len(today_cards)  # typically 40 except final day
 
-    # ─── Compute today’s slice of 40 questions and which ones remain unanswered ─────────────
-    daily_batch = get_today_batch(all_flashcards, day)
-    answered_dict = prog.get("answered", {})  # e.g. { "1": "correct", "2": "wrong", ... }
+    st.header(f"Day {day} Flashcard Mode ({total} questions)")
 
-    unanswered = [
-        card for card in daily_batch 
-        if str(card["id"]) not in answered_dict
-    ]
+    # ─── Initialize session_state once ───────────────────────────────────────────────
+    if "answered_ids" not in st.session_state:
+        st.session_state.answered_ids = load_answered_ids()
 
-    # If none remain, show completion and return
-    if not unanswered:
-        st.success("🎉 All questions for today have been answered!")
-        return
+    if "question_order" not in st.session_state:
+        # Create a list of indices [0 .. total-1], then shuffle
+        st.session_state.question_order = list(range(total))
+        random.shuffle(st.session_state.question_order)
 
-    # ─── Initialize session_state["rounds"] if needed ───────────────────────────────────
-    if "rounds" not in st.session_state:
-        st.session_state["rounds"] = 0
+    if "history" not in st.session_state or not st.session_state.history:
+        # Pick the first unanswered index in question_order
+        unanswered = [i for i in st.session_state.question_order
+                      if i not in st.session_state.answered_ids]
+        if not unanswered:
+            # If all answered, we’ll reset below
+            st.session_state.history = []
+            st.session_state.history_pos = 0
+        else:
+            first_idx = unanswered[0]
+            st.session_state.history = [first_idx]
+            st.session_state.history_pos = 0
 
-    # ─── If no "current_qid" in session_state, pick one at random from unanswered ────────
-    if "current_qid" not in st.session_state:
-        chosen = random.choice(unanswered)
-        st.session_state["current_qid"] = chosen["id"]
-        st.session_state["last_feedback"] = None
+    if "has_submitted" not in st.session_state:
+        st.session_state.has_submitted = False
 
-    # ─── Display how many attempts have been made this session ────────────────────────────
-    st.subheader(f"Flashcard Attempts This Session: {st.session_state['rounds']}")
+    # ─── If everything is answered, show a “done” message and reset ──────────────────
+    unanswered_ids = [i for i in st.session_state.question_order
+                      if i not in st.session_state.answered_ids]
+    if not unanswered_ids and st.session_state.answered_ids:
+        st.success("🎉 You've answered all questions for today! Resetting for a new session.")
+        # Clear the local JSON file and session_state so they can start again
+        st.session_state.answered_ids = set()
+        save_answered_ids(st.session_state.answered_ids)
+        st.session_state.history = []
+        st.session_state.history_pos = 0
+        st.session_state.has_submitted = False
+        st.stop()
 
-    # ─── If there is “last_feedback” from a previous submission, show it above ────────────
-    if st.session_state.get("last_feedback"):
-        st.write(st.session_state["last_feedback"])
-        st.write("---")
+    # ─── Determine which question index we’re currently on ───────────────────────────
+    if st.session_state.history:
+        idx = st.session_state.history[st.session_state.history_pos]
+    else:
+        # In case history is empty, pick a new first unanswered
+        if unanswered_ids:
+            idx = unanswered_ids[0]
+            st.session_state.history = [idx]
+            st.session_state.history_pos = 0
+        else:
+            # Should never really get here, but just in case
+            st.success("🎉 All questions are done for today.")
+            st.stop()
 
-    # ─── Fetch the current question’s dict by ID ─────────────────────────────────────────
-    current_qid = st.session_state["current_qid"]
-    card = next(c for c in daily_batch if c["id"] == current_qid)
+    card = today_cards[idx]  # This is a dict with keys "question", "instruction", "options", "answers"
 
-    # ─── Display the question text and instruction ───────────────────────────────────────
-    st.markdown(f"**Q{current_qid}: {card['question']}**")
-    st.markdown(f"*{card['instruction']}*")
+    # ─── DISPLAY QUESTION NUMBER & PROGRESS BAR ─────────────────────────────────────
+    question_number = st.session_state.history_pos + 1
+    st.subheader(f"Question {question_number} of {total}")
+    st.progress(question_number / total)
 
-    # ─── Build a form for this single flashcard question ─────────────────────────────────
-    with st.form(key=f"fc_form_{current_qid}", clear_on_submit=False):
-        selected = []  # collect which letters are checked
+    # ─── SHOW QUESTION TEXT & INSTRUCTION ────────────────────────────────────────────
+    st.write(card["question"])
+    st.markdown(f"**{card.get('instruction', '')}**")
 
-        for letter, text in card["options"].items():
-            if st.checkbox(f"{letter}. {text}", key=f"fc_{current_qid}_{letter}"):
-                selected.append(letter)
+    # ─── RENDER CHECKBOXES ──────────────────────────────────────────────────────────
+    selected = []
+    for key, val in card["options"].items():
+        # If this checkbox was previously checked (session_state), it stays checked
+        if st.session_state.get(f"flash_{idx}_{key}", False):
+            selected.append(key)
+        st.checkbox(f"{key}. {val}", key=f"flash_{idx}_{key}")
 
-        submitted = st.form_submit_button("Submit Answer")
+    # ─── SUBMIT LOGIC ────────────────────────────────────────────────────────────────
+    # We disable Submit if already submitted (has_submitted==True), so only show Submit if False
+    if not st.session_state.has_submitted:
+        if st.button("Submit Answer"):
 
-        if submitted:
-            # 1) If no option selected → show warning, stay on same question
             if not selected:
                 st.warning("⚠️ Please select at least one option before submitting.")
             else:
-                # 2) Evaluate correctness
+                # Evaluate correctness (strict equality only)
                 correct_set = set(card["answers"])
-                selected_set = set(selected)
+                chosen_set = set(selected)
 
-                if selected_set == correct_set:
-                    is_correct = True
-                    corr_letters = ", ".join(sorted(correct_set))
-                    feedback_msg = f"✅ Correct! (Answer: {corr_letters})"
+                if chosen_set == correct_set:
+                    st.success("✅ Correct!")
+                elif chosen_set & correct_set:
+                    st.warning(f"🟡 Partially correct. Correct answer(s): {', '.join(correct_set)}")
                 else:
-                    is_correct = False
-                    corr_letters = ", ".join(sorted(correct_set))
-                    feedback_msg = f"❌ Wrong. Correct answer(s): {corr_letters}"
+                    st.error(f"❌ Incorrect. Correct answer(s): {', '.join(correct_set)}")
 
-                # 3) Record the attempt (updates user_progress and mistakes.json if wrong)
-                record_attempt(current_qid, is_correct)
+                # Track wrong counts
+                wrong_counts = load_wrong_answers()
+                if chosen_set != correct_set:
+                    wrong_counts[str(idx)] = wrong_counts.get(str(idx), 0) + 1
+                save_wrong_answers(wrong_counts)
 
-                # 4) Increment the rounds counter
-                st.session_state["rounds"] += 1
+                # Mark this question as answered and persist
+                st.session_state.answered_ids.add(idx)
+                save_answered_ids(st.session_state.answered_ids)
 
-                # 5) Save feedback in session_state for display
-                st.session_state["last_feedback"] = feedback_msg
+                # Lock this question so Submit disappears and Next becomes available
+                st.session_state.has_submitted = True
 
-                # 6) Pick a new random unanswered question (if any remain)
-                prog_after = load_progress()
-                answered_after = prog_after.get("answered", {})
-                still_unanswered = [
-                    c for c in daily_batch 
-                    if str(c["id"]) not in answered_after
-                ]
+    # ─── NAVIGATION BUTTONS ─────────────────────────────────────────────────────────
+    col_prev, col_next = st.columns(2)
 
-                if still_unanswered:
-                    new_card = random.choice(still_unanswered)
-                    st.session_state["current_qid"] = new_card["id"]
+    with col_prev:
+        if st.button("⬅️ Previous"):
+            if st.session_state.history_pos > 0:
+                st.session_state.history_pos -= 1
+                st.session_state.has_submitted = False
+                # Clear any previous feedback on UI (optional; handled automatically)
+
+    with col_next:
+        if st.button("Next ➡️"):
+            if st.session_state.has_submitted:
+                # User must have clicked Submit first
+                # Find the next unanswered question in question_order
+                unanswered_ids = [i for i in st.session_state.question_order
+                                  if i not in st.session_state.answered_ids]
+                remaining = [i for i in unanswered_ids if i != idx]
+
+                if remaining:
+                    next_idx = remaining[0]
+                    # Trim forward history (if user had gone back)
+                    st.session_state.history = st.session_state.history[:st.session_state.history_pos + 1]
+                    # Append the next question
+                    st.session_state.history.append(next_idx)
+                    st.session_state.history_pos += 1
+                    st.session_state.has_submitted = False
                 else:
-                    # If none remain, clear current_qid so next run shows “done”
-                    del st.session_state["current_qid"]
+                    # No more unanswered remain (but should have been caught above)
+                    st.success("🎉 All questions for today have been answered!")
+            else:
+                st.warning("⚠️ Please submit your answer before moving to the next question.")
 
-                # No need for st.experimental_rerun()—Streamlit will rerun automatically after form submission.
-
-    # ─── After form (and possible automatic rerun), show how many are still unanswered ─────
-    prog_latest = load_progress()
-    answered_latest = prog_latest.get("answered", {})
-    still_unanswered = [
-        c for c in daily_batch 
-        if str(c["id"]) not in answered_latest
-    ]
-    st.write(f"Remaining unanswered today: **{len(still_unanswered)}/{len(daily_batch)}**")
+    # ─── RESET PROGRESS BUTTON ──────────────────────────────────────────────────────
+    st.write("")  # small spacer
+    if st.button("🔁 Reset Practice Progress"):
+        # Clear in‐memory state and delete the JSON file
+        st.session_state.answered_ids = set()
+        st.session_state.history = []
+        st.session_state.history_pos = 0
+        st.session_state.has_submitted = False
+        if os.path.exists("answered_questions.json"):
+            os.remove("answered_questions.json")
+        st.success("✅ Practice progress has been reset for Flashcard Mode.")
+        st.stop()

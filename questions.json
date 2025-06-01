@@ -320,7 +320,7 @@
     },
     {
         "question": "At what level is the inventory carried out in inventory management?",
-        "instruction": "Please select all the correct answers that apply.",
+        "instruction": "There are 4 correct answers to this question.",
         "options": {
             "A": "At company code level",
             "B": "At the material level",

@@ -26,19 +26,55 @@ def run_flashcard_mode(questions, day):
         if saved_state:
             st.session_state.flashcard_order = saved_state["order"]
             st.session_state.flashcard_index = saved_state["index"]
+            # If we have a saved state, we should also restore the correct_count if it exists
+            st.session_state.correct_count = saved_state.get("correct_count", 0)
         else:
             st.session_state.flashcard_order = list(range(total))
             random.shuffle(st.session_state.flashcard_order)
             st.session_state.flashcard_index = 0
+            st.session_state.correct_count = 0
 
         st.session_state.flashcard_submitted = False
         st.session_state.selected_options = set()
 
     # ─── Current question setup ──────────────────────────────────────────
     if st.session_state.flashcard_index >= len(st.session_state.flashcard_order):
+        # Completed a full round
+        accuracy = 0
+        if total > 0:
+            accuracy = (st.session_state.correct_count / total) * 100
+
         st.success("🎉 You've completed all questions for this round.")
-        del st.session_state.flashcard_index
-        del st.session_state.flashcard_order
+        st.info(f"Your accuracy: {st.session_state.correct_count} / {total} "
+                f"({accuracy:.1f}%)")
+
+        # Increment completed rounds count
+        progress_data[today_key] = completed_rounds + 1
+        save_json(PROGRESS_FILE, progress_data)
+
+        # Button to start another round
+        if st.button("🔄 Start Another Round"):
+            # Reset answered questions for today
+            answered_data[today_key] = []
+            save_json(ANSWERED_FILE, answered_data)
+
+            # Reset ordering and index in session state
+            st.session_state.flashcard_order = list(range(total))
+            random.shuffle(st.session_state.flashcard_order)
+            st.session_state.flashcard_index = 0
+            st.session_state.flashcard_submitted = False
+            st.session_state.correct_count = 0
+
+            # Save new flashcard state (with reset index and order)
+            flashcard_state[today_key] = {
+                "order": st.session_state.flashcard_order,
+                "index": st.session_state.flashcard_index,
+                "correct_count": st.session_state.correct_count
+            }
+            save_json(ORDER_FILE, flashcard_state)
+
+            st.experimental_rerun()
+
         return
 
     idx = st.session_state.flashcard_order[st.session_state.flashcard_index]
@@ -64,9 +100,11 @@ def run_flashcard_mode(questions, day):
 
             if selected == correct:
                 st.success("✅ Correct!")
+                # Increment correct count
+                st.session_state.correct_count += 1
             else:
                 st.error("❌ Incorrect.")
-                st.markdown(f"**Correct answers are:** {', '.join(correct)}")
+                st.markdown(f"**Correct answers are:** {', '.join(sorted(correct))}")
 
                 # Log mistake
                 mistakes = load_json(MISTAKES_FILE, {})
@@ -74,13 +112,21 @@ def run_flashcard_mode(questions, day):
                 mistakes[question_key] = mistakes.get(question_key, 0) + 1
                 save_json(MISTAKES_FILE, mistakes)
 
-            # Save progress
+            # Save progress (mark this question as answered)
             if idx not in answered_ids:
                 answered_ids.append(idx)
                 answered_data[today_key] = answered_ids
                 save_json(ANSWERED_FILE, answered_data)
 
             st.session_state.flashcard_submitted = True
+
+            # Save updated correct_count in state file
+            flashcard_state[today_key] = {
+                "order": st.session_state.flashcard_order,
+                "index": st.session_state.flashcard_index,
+                "correct_count": st.session_state.correct_count
+            }
+            save_json(ORDER_FILE, flashcard_state)
 
     # ─── Next Logic ──────────────────────────────────────────────────────
     if st.button("Next"):
@@ -97,11 +143,12 @@ def run_flashcard_mode(questions, day):
             # Save progress to state file
             flashcard_state[today_key] = {
                 "order": st.session_state.flashcard_order,
-                "index": st.session_state.flashcard_index
+                "index": st.session_state.flashcard_index,
+                "correct_count": st.session_state.correct_count
             }
             save_json(ORDER_FILE, flashcard_state)
 
-            st.rerun()
+            st.experimental_rerun()
 
     # ─── Progress Bar and Info ───────────────────────────────────────────
     if total > 0:
@@ -125,8 +172,8 @@ def run_flashcard_mode(questions, day):
 
         # Clear session state
         for k in list(st.session_state.keys()):
-            if k.startswith("opt_") or k in ["flashcard_index", "flashcard_order", "flashcard_submitted"]:
+            if k.startswith("opt_") or k in ["flashcard_index", "flashcard_order", "flashcard_submitted", "correct_count"]:
                 del st.session_state[k]
 
         st.success("✅ Progress for today has been reset.")
-        st.rerun()
+        st.experimental_rerun()

@@ -11,54 +11,48 @@ def run_flashcard_mode(questions, day):
     total = len(questions)
     today_key = f"day{day}"
 
-    # ─── Load answered IDs and progress count ─────────────────────────────
+    # ─── Load progress, answered questions, and mistakes ─────────────────
     answered_data = load_json(ANSWERED_FILE, {})
     answered_ids = answered_data.get(today_key, [])
 
     progress_data = load_json(PROGRESS_FILE, {})
     completed_rounds = progress_data.get(today_key, 0)
 
-    # ─── Session Initialization ───────────────────────────────────────────
-    if "flashcard_index" not in st.session_state:
-        unanswered = [i for i in range(total) if i not in answered_ids]
-        if not unanswered:
-            # Completed round
-            completed_rounds += 1
-            progress_data[today_key] = completed_rounds
-            save_json(PROGRESS_FILE, progress_data)
+    flashcard_state = load_json(ORDER_FILE, {})
+    saved_state = flashcard_state.get(today_key, {})
 
-            # Reset answers
-            answered_ids = []
-            answered_data[today_key] = []
-            save_json(ANSWERED_FILE, answered_data)
+    # ─── Initialize session state ────────────────────────────────────────
+    if "flashcard_order" not in st.session_state or "flashcard_index" not in st.session_state:
+        if saved_state:
+            st.session_state.flashcard_order = saved_state["order"]
+            st.session_state.flashcard_index = saved_state["index"]
+        else:
+            st.session_state.flashcard_order = list(range(total))
+            random.shuffle(st.session_state.flashcard_order)
+            st.session_state.flashcard_index = 0
 
-            unanswered = list(range(total))  # restart question pool
-
-            completed_rounds += 1
-            progress_data[today_key] = completed_rounds
-            save_json(PROGRESS_FILE, progress_data)
-
-        random.shuffle(unanswered)
-        st.session_state.flashcard_order = unanswered
-        st.session_state.flashcard_index = len(answered_ids)
         st.session_state.flashcard_submitted = False
         st.session_state.selected_options = set()
+
+    # ─── Current question setup ──────────────────────────────────────────
+    if st.session_state.flashcard_index >= len(st.session_state.flashcard_order):
+        st.success("🎉 You've completed all questions for this round.")
+        return
 
     idx = st.session_state.flashcard_order[st.session_state.flashcard_index]
     q = questions[idx]
 
     st.markdown(f"**Question {st.session_state.flashcard_index + 1} / {total}**")
-    st.info(q["instruction"])
+    st.markdown(q["instruction"])
     st.markdown(q["question"])
 
-    # ─── Render Checkboxes for Options ────────────────────────────────────
+    # ─── Render Checkboxes ───────────────────────────────────────────────
     selected_keys = []
     for key, text in q["options"].items():
-        checked = st.checkbox(f"{key}: {text}", key=f"opt_{key}")
-        if checked:
+        if st.checkbox(f"{key}: {text}", key=f"opt_{key}"):
             selected_keys.append(key)
 
-    # ─── Submit Logic ─────────────────────────────────────────────────────
+    # ─── Submit Logic ────────────────────────────────────────────────────
     if st.button("Submit"):
         if not selected_keys:
             st.warning("⚠️ Please select at least one answer before submitting.")
@@ -70,8 +64,7 @@ def run_flashcard_mode(questions, day):
                 st.success("✅ Correct!")
             else:
                 st.error("❌ Incorrect.")
-                correct_answers = ", ".join(correct)
-                st.markdown(f"**Correct answers are:** {correct_answers}")
+                st.markdown(f"**Correct answers are:** {', '.join(correct)}")
 
                 # Log mistake
                 mistakes = load_json(MISTAKES_FILE, {})
@@ -79,15 +72,15 @@ def run_flashcard_mode(questions, day):
                 mistakes[question_key] = mistakes.get(question_key, 0) + 1
                 save_json(MISTAKES_FILE, mistakes)
 
-            # Save answer
-            answered_ids.append(idx)
-            answered_data[today_key] = answered_ids
-            save_json(ANSWERED_FILE, answered_data)
+            # Save progress
+            if idx not in answered_ids:
+                answered_ids.append(idx)
+                answered_data[today_key] = answered_ids
+                save_json(ANSWERED_FILE, answered_data)
 
-            # Mark as submitted
             st.session_state.flashcard_submitted = True
 
-    # ─── Next Logic ───────────────────────────────────────────────────────
+    # ─── Next Logic ──────────────────────────────────────────────────────
     if st.button("Next"):
         if not st.session_state.flashcard_submitted:
             st.warning("⚠️ Please submit your answer before going to the next question.")
@@ -99,38 +92,38 @@ def run_flashcard_mode(questions, day):
             st.session_state.flashcard_index += 1
             st.session_state.flashcard_submitted = False
 
-            if st.session_state.flashcard_index >= len(st.session_state.flashcard_order):
-                st.success("🎉 You've completed all questions for this round.")
-                del st.session_state.flashcard_index
-                del st.session_state.flashcard_order
-                return
+            # Save progress to state file
+            flashcard_state[today_key] = {
+                "order": st.session_state.flashcard_order,
+                "index": st.session_state.flashcard_index
+            }
+            save_json(ORDER_FILE, flashcard_state)
 
             st.rerun()
-    # ─── Progress + Rounds Info ───────────────────────────────────────────
+
+    # ─── Progress Bar and Info ───────────────────────────────────────────
     if total > 0:
-        progress_ratio = min(len(answered_ids) / total, 1.0)
-        st.progress(progress_ratio)
+        st.progress(min(len(answered_ids) / total, 1.0))
         st.caption(f"Progress: {len(answered_ids)} / {total}")
     else:
-        st.warning("⚠️ No questions found for this day. Please check your questions.json file.")
+        st.warning("⚠️ No questions found for this day.")
 
     st.caption(f"Completed rounds today: {completed_rounds}")
 
-    # ─── Reset Day Button ─────────────────────────────────────────────────────
+    # ─── Reset Day Button ────────────────────────────────────────────────
     if st.button("🔄 Reset Today"):
-        # Reset memory for the day
         answered_data[today_key] = []
         save_json(ANSWERED_FILE, answered_data)
 
         progress_data[today_key] = 0
         save_json(PROGRESS_FILE, progress_data)
 
+        flashcard_state.pop(today_key, None)
+        save_json(ORDER_FILE, flashcard_state)
+
         # Clear session state
-        keys_to_clear = [k for k in st.session_state if k.startswith("opt_")]
-        for k in keys_to_clear:
-            del st.session_state[k]
-        for k in ["flashcard_index", "flashcard_order", "flashcard_submitted"]:
-            if k in st.session_state:
+        for k in list(st.session_state.keys()):
+            if k.startswith("opt_") or k in ["flashcard_index", "flashcard_order", "flashcard_submitted"]:
                 del st.session_state[k]
 
         st.success("✅ Progress for today has been reset.")

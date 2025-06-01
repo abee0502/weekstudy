@@ -5,6 +5,7 @@ from utils import save_json, load_json
 PROGRESS_FILE = "progress.json"
 ANSWERED_FILE = "answered_ids.json"
 MISTAKES_FILE = "mistakes.json"
+ORDER_FILE = "flashcard_state.json"
 
 def run_flashcard_mode(questions, day):
     total = len(questions)

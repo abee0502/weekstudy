@@ -12,7 +12,7 @@ def run_review_mode(questions, day):
             st.markdown(f"- {key}: {text}")
 
         # Show correct answers
-        correct_text = [f"{k}: {v}" for k, v in q["options"].items() if k in q["answers"]]
-        st.success("✅ Correct Answer(s): " + ", ".join(correct_text))
+        correct_keys = ", ".join(q["answers"])
+        st.success("✅ Correct Answer(s): " + correct_keys)
 
         st.markdown("---")

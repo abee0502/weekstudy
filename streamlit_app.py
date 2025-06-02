@@ -25,8 +25,10 @@ mode = st.sidebar.radio("Choose mode", [
     "Quiz Mode",
     "Review Mode",
     "Mistake Review Mode",
+    "Mistake Practice Mode",    # ← newly added
     "🧹 Clear Mistakes"
 ])
+
 
 # ─── Route Based on Mode ──────────────────────────────────────────────────
 if mode == "Flashcard Mode":
@@ -40,6 +42,10 @@ elif mode == "Review Mode":
 
 elif mode == "Mistake Review Mode":
     run_mistake_review_mode(day)
+
+# ← Insert this new clause:
+elif mode == "Mistake Practice Mode":
+    run_mistake_practice_mode(day)
 
 elif mode == "🧹 Clear Mistakes":
     st.header("🧹 Clear Mistake Log")

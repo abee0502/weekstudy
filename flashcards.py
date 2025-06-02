@@ -33,45 +33,35 @@ def run_flashcard_mode(questions, day):
 
         st.session_state.flashcard_submitted = False
         st.session_state.selected_options = set()
-
-    # ─── End of Deck: Allow Restart ─────────────────────────────────────────
-    if st.session_state.flashcard_index >= len(st.session_state.flashcard_order):
-        st.success("🎉 You've completed all questions for this round.")
-
-        if st.button("🔁 Restart All Questions"):
-            # 1) Re‐shuffle the order:
-            new_order = list(range(total))
-            random.shuffle(new_order)
-
-            # 2) Reset session_state
-            st.session_state.flashcard_order = new_order
-            st.session_state.flashcard_index = 0
-            st.session_state.flashcard_submitted = False
-
-            # 3) Clear any leftover “opt_{key}” flags
-            for idx in range(total):
-                for key in questions[idx]["options"].keys():
-                    st.session_state.pop(f"opt_{key}", None)
-
-            # 4) Clear the “answered_ids” for today so the progress bar resets
-            answered_data = load_json(ANSWERED_FILE, {})
-            answered_data[today_key] = []
-            save_json(ANSWERED_FILE, answered_data)
-
-            # 5) Reset saved state in flashcard_state file
-            flashcard_state = load_json(ORDER_FILE, {})
-            flashcard_state[today_key] = {
-                "order": st.session_state.flashcard_order,
-                "index": st.session_state.flashcard_index
-            }
-            save_json(ORDER_FILE, flashcard_state)
-
-            # Re‐run so we start at Question #1
-            st.rerun()
-
-        return
+        st.session_state.correct_count = 0  # Track correct answers
 
     # ─── Current question setup ──────────────────────────────────────────
+    if st.session_state.flashcard_index >= len(st.session_state.flashcard_order):
+        # Update completed rounds and reset for next round
+        if not st.session_state.get("round_completed", False):
+            progress_data[today_key] = completed_rounds + 1
+            save_json(PROGRESS_FILE, progress_data)
+            st.session_state.round_completed = True
+
+        # Show accuracy
+        accuracy = 0
+        if total > 0:
+            accuracy = (st.session_state.correct_count / total) * 100
+        st.success("🎉 You've completed all questions for this round.")
+        st.info(f"Your accuracy: **{accuracy:.1f}%** ({st.session_state.correct_count} out of {total} correct)")
+
+        # Reset correct count for next round
+        if st.button("Start New Round"):
+            st.session_state.flashcard_order = list(range(total))
+            random.shuffle(st.session_state.flashcard_order)
+            st.session_state.flashcard_index = 0
+            st.session_state.flashcard_submitted = False
+            st.session_state.selected_options = set()
+            st.session_state.correct_count = 0
+            st.session_state.round_completed = False
+            st.rerun()
+        return
+
     idx = st.session_state.flashcard_order[st.session_state.flashcard_index]
     q = questions[idx]
 
@@ -95,6 +85,7 @@ def run_flashcard_mode(questions, day):
 
             if selected == correct:
                 st.success("✅ Correct!")
+                st.session_state.correct_count += 1  # Increment correct count
             else:
                 st.error("❌ Incorrect.")
                 st.markdown(f"**Correct answers are:** {', '.join(correct)}")
@@ -118,7 +109,7 @@ def run_flashcard_mode(questions, day):
         if not st.session_state.flashcard_submitted:
             st.warning("⚠️ Please submit your answer before going to the next question.")
         else:
-            # Clear checkboxes for this question
+            # Clear checkboxes
             for k in q["options"].keys():
                 st.session_state.pop(f"opt_{k}", None)
 
@@ -141,7 +132,7 @@ def run_flashcard_mode(questions, day):
     else:
         st.warning("⚠️ No questions found for this day.")
 
-    st.caption(f"Completed rounds today: {completed_rounds}")
+    st.caption(f"Completed rounds today: {progress_data.get(today_key, 0)}")
 
     # ─── Reset Day Button ────────────────────────────────────────────────
     if st.button("🔄 Reset Today"):
@@ -156,7 +147,10 @@ def run_flashcard_mode(questions, day):
 
         # Clear session state
         for k in list(st.session_state.keys()):
-            if k.startswith("opt_") or k in ["flashcard_index", "flashcard_order", "flashcard_submitted"]:
+            if k.startswith("opt_") or k in [
+                "flashcard_index", "flashcard_order", "flashcard_submitted",
+                "correct_count", "round_completed"
+            ]:
                 del st.session_state[k]
 
         st.success("✅ Progress for today has been reset.")

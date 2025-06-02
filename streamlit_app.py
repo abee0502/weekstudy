@@ -6,6 +6,9 @@ from quiz_mode import run_quiz_mode
 from review_mode import run_review_mode
 from mistakes import run_mistake_review_mode
 
+# ← This line must appear:
+from mistake_practice import run_mistake_practice_mode
+
 MISTAKES_FILE = "mistakes.json"
 
 # ─── App Config ───────────────────────────────────────────────────────────
@@ -25,10 +28,9 @@ mode = st.sidebar.radio("Choose mode", [
     "Quiz Mode",
     "Review Mode",
     "Mistake Review Mode",
-    "Mistake Practice Mode",    # ← newly added
+    "Mistake Practice Mode",   # ← be sure this is here
     "🧹 Clear Mistakes"
 ])
-
 
 # ─── Route Based on Mode ──────────────────────────────────────────────────
 if mode == "Flashcard Mode":
@@ -43,7 +45,7 @@ elif mode == "Review Mode":
 elif mode == "Mistake Review Mode":
     run_mistake_review_mode(day)
 
-# ← Insert this new clause:
+# ← And this branch must appear exactly:
 elif mode == "Mistake Practice Mode":
     run_mistake_practice_mode(day)
 
